@@ -50,6 +50,20 @@ CHUNK_SIZE = 800
 TEST_RUN = os.getenv("TEST_RUN", "False").lower() == "true"
 TEST_FILE_NAME = os.getenv("TEST_FILE_NAME", None)  # Optional: specific file for test run
 
+r
+def infer_region_from_filename(filename: str) -> str:
+    """
+    Infer the region (US or Germany) from the filename.
+    """
+    filename_lower = filename.lower()
+    if "germany" in filename_lower or "berlin" in filename_lower:
+        return "Germany"
+    elif "us" in filename_lower or "california" in filename_lower or "calrecycle" in filename_lower or "america" in filename_lower:
+        return "US"
+    else:
+        # Default to Germany for now, or could be "General"
+        return "Germany"
+
 
 def get_embedding_model():
     """Get embedding model with caching to avoid re-initialization."""
@@ -71,6 +85,7 @@ def load_and_clean_file_fast(filepath: str) -> List[Document]:
     """
     ext = os.path.splitext(filepath)[1].lower()
     filename = os.path.basename(filepath)
+    region = infer_region_from_filename(filename)
 
     try:
         if ext == ".pdf":
@@ -87,7 +102,7 @@ def load_and_clean_file_fast(filepath: str) -> List[Document]:
         elif ext == ".epub":
             loader = UnstructuredEPubLoader(filepath, mode="elements")
             docs = loader.load()
-        elif ext in [".txt", ".md"]:
+        elif ext in [".txt", ".md", ".html"]:
             with open(filepath, "r", encoding="utf-8") as f:
                 content = f.read()
             docs = [Document(page_content=content, metadata={"source": filepath, "filename": filename, "page": 1})]
@@ -101,6 +116,7 @@ def load_and_clean_file_fast(filepath: str) -> List[Document]:
             for doc in cleaned_docs:
                 doc.metadata["filename"] = filename
                 doc.metadata["file_type"] = ext
+                doc.metadata["region"] = region
                 # Ensure page number exists
                 if "page" not in doc.metadata:
                     doc.metadata["page"] = 1

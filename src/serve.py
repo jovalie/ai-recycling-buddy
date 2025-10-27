@@ -12,7 +12,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from .graph import build_rag_graph, save_graph_as_png
+from graph import build_rag_graph, save_graph_as_png
 
 # === Logging Setup ===
 file_path = os.path.realpath(__file__)
@@ -76,6 +76,7 @@ async def invoke_llm(question: str, region: str = "Germany") -> Tuple[str, List[
                     "question": question,
                     "messages": [HumanMessage(content=question)],
                     "data": [],
+                    "region": region,
                     "metadata": {
                         "show_reasoning": True,
                         "model_name": model_name,

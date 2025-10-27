@@ -162,7 +162,9 @@ def retrieve_documents(state: ChatState) -> ChatState:
 
     # RAG fusion chain with MMR retrieval
     retrieval_chain_rag_fusion_mmr = (
-        multi_query_generator | book_data_vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 3, "fetch_k": 15, "lambda_mult": 0.5}).map() | reciprocal_rank_fusion  # Final number of documents to return per query  # Initial candidate pool (larger for better diversity)  # Balances relevance (0) and diversity (1)  # Apply MMR retrieval to each reformulated query  # Rerank the combined results using RRF
+        multi_query_generator
+        | book_data_vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 3, "fetch_k": 15, "lambda_mult": 0.5, "filter": {"region": region}}).map()
+        | reciprocal_rank_fusion  # Final number of documents to return per query  # Initial candidate pool (larger for better diversity)  # Balances relevance (0) and diversity (1)  # Apply MMR retrieval to each reformulated query  # Rerank the combined results using RRF
     )
 
     logger.info(f"Retrieval chain structure: {retrieval_chain_rag_fusion_mmr}")

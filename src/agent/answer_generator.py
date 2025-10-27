@@ -50,7 +50,10 @@ def create_citation_context(documents):
             meaningful_quote = meaningful_quote[:100] + "..." if len(meaningful_quote) > 100 else meaningful_quote
 
             # Create full citation for references
-            citation = f"{author} ({year}). [{title}](file://{file_path}#{page})"
+            from pathlib import Path
+
+            file_uri = Path(file_path).resolve().as_uri()
+            citation = f"{author} ({year}). [{title}]({file_uri}#page={page})"
             citation += f'\n    > "{meaningful_quote}"'
             references_dict[source_num] = citation
 
@@ -104,6 +107,9 @@ Here are your goals:
 
 You provide accurate information about recycling practices, waste sorting, local recycling programs, and environmental sustainability.
 
+**Region Context**:
+The user is asking about recycling practices in {region}, be sure to mention this in your answers accordingly.
+
 **Available Sources for Citation:**
 {source_context}
 
@@ -125,15 +131,16 @@ Use the following background information to help answer the question:
 2. Use numbered citations when referencing specific information (e.g., [1], [2]).
 3. If the answer is **not present** in the knowledge, say so explicitly.
 4. Keep the answer **concise**, **accurate**, and **focused** on the question.
-5. End your response with a **References** section that includes:
+5. Mention the region ({region}) in your response where relevant, especially when discussing local laws or practices.
+6. End your response with a **References** section that includes:
    - Full citations with clickable links to the source
    - Meaningful quotes from the page content that support your answer
    - For recycling guides with multiple relevant sections, show different page links and quotes
-6. Format references as:
+7. Format references as:
    - Single section: `*   [i] Author (Year). [Title](file://path#page)\n    > "Meaningful quote from content"`
    - Multiple sections: `*   [i] Author (Year). *Title*\n    - [Page X](file://path#X): "Quote from page X"\n    - [Page Y](file://path#Y): "Quote from page Y"`
    - Web sources: `*   [i] [Title](URL)\n    > "Meaningful quote from content"`
-7. Only answer questions relevant to recycling, waste management, sustainability, and environmental practices. For all other queries, politely decline.
+8. Only answer questions relevant to recycling, waste management, sustainability, and environmental practices. For all other queries, politely decline.
 
 ---
 **Important**:
@@ -183,6 +190,10 @@ def answer_generator(state):
     else:
         question = state.question
 
+    # Get region from state, default to Germany if not set
+    region = state.metadata.get("region", "Germany")
+    logger.info(f"Region from metadata: {region}")
+
     # Ensure all documents are LangChain Document objects (convert from dicts if needed)
     documents = [Document(metadata=doc["metadata"], page_content=doc["page_content"]) if isinstance(doc, dict) else doc for doc in documents]
 
@@ -190,7 +201,7 @@ def answer_generator(state):
     source_context, references_dict = create_citation_context(documents)
 
     # Format the prompt for the answer generator
-    prompt = answer_generator_prompt_template.format(current_datetime=current_datetime, context=documents, question=question, goals_as_str=goals_as_str, source_context=source_context)
+    prompt = answer_generator_prompt_template.format(current_datetime=current_datetime, context=documents, question=question, goals_as_str=goals_as_str, source_context=source_context, region=region)
 
     logger.info(f"Answer generator prompt: {prompt}")
     response = call_llm(prompt=prompt, model_name=state.metadata["model_name"], model_provider=state.metadata["model_provider"], pydantic_model=None, agent_name="answer_generator_agent")

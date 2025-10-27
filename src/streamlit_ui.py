@@ -30,12 +30,14 @@ examples = [
 
 # Sidebar: SusTech Recycling Mission
 with st.sidebar:
-    st.title("♻️ SusTech Recycling Agent")
+    st.title("♻️ AI Recycling Buddy")
+
+    # Region selector (Germany default) as dropdown at the top
+    region = st.selectbox("Region", options=["Germany", "US"], index=0, key="region_select")
+
     st.subheader("Our Mission 🌱")
 
     # Region selector (Germany default) placed at the top of the sidebar for quick access
-    region = st.radio("Region", options=["Germany", "US"], index=0, key="region_radio")
-
     st.write(
         """
     We are dedicated to promoting sustainable recycling practices and educating communities about proper waste management.
@@ -184,7 +186,7 @@ def generate_answer(prompt: str, chat_history: list = None) -> tuple[str, dict]:
         chat_history = []
 
     # include selected region from sidebar (default to Germany)
-    selected_region = st.session_state.get("region_radio", "Germany")
+    selected_region = st.session_state.get("region_select", "Germany")
     payload = {"question": prompt, "chat_history": chat_history, "region": selected_region}
 
     try:
@@ -214,7 +216,7 @@ if not st.session_state.chat_history:
     with st.chat_message("ai"):
         st.markdown(
             """
-        **♻️ Hello! I'm the SusTech Recycling Agent – your guide to sustainable recycling practices in the US and Germany.**
+        **♻️ Hello! I'm your AI Recycling Buddy – your guide to sustainable recycling practices in the US and Germany.**
 
         I can help you with:
         - 🇺🇸 US recycling laws and regulations by state
@@ -245,8 +247,8 @@ if user_query:
                 st.markdown(response)
 
                 # Display usage information in expandable JSON format
-                with st.expander("📊 Full Agent Pipeline Data", expanded=False):
-                    st.json(usage)
+                # with st.expander("📊 Full Agent Pipeline Data", expanded=False):
+                #     st.json(usage)
 
                 print(f"Final answer: {response}")
                 print(f"Usage data keys: {list(usage.keys()) if isinstance(usage, dict) else 'Not a dict'}")
