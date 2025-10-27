@@ -75,12 +75,13 @@ async def check_relevance(state: ChatState) -> ChatState:
         if result.value:
             filtered_documents.append(doc)
 
-    # Determine checker result
+    # Determine checker result: be conservative but prefer vectorstore when any document is useful.
     total_docs = len(documents)
     kept_docs = len(filtered_documents)
-    filtered_out_pct = (total_docs - kept_docs) / total_docs if total_docs > 0 else 1.0
-    checker_result = "pass" if filtered_out_pct < 0.5 else "fail"
+    # If any document is judged useful, short-circuit to PASS to avoid unnecessary websearch
+    checker_result = "pass" if kept_docs > 0 else "fail"
 
+    filtered_out_pct = (total_docs - kept_docs) / total_docs if total_docs > 0 else 1.0
     logger.info(f"Filtered out {filtered_out_pct:.1%}: {checker_result.upper()}")
 
     # Update the state appropriately

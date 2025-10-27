@@ -7,6 +7,7 @@ from typing import Tuple, List, Dict, Any, Optional, TypeVar, Type, Union
 
 from dotenv import load_dotenv
 from pydantic import BaseModel
+from pathlib import Path
 
 from langchain_anthropic import Anthropic, ChatAnthropic
 from langchain_deepseek import ChatDeepSeek
@@ -24,6 +25,26 @@ from .logging import get_caller_logger
 
 logger = get_caller_logger()
 load_dotenv()
+
+# If GOOGLE_APPLICATION_CREDENTIALS is set but points to a non-existing file, try to auto-resolve common locations
+gac = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+if gac and (not os.path.isabs(gac) or (gac and not os.path.exists(gac))):
+    # Try common candidates: exact name, name + .json
+    candidates = [gac, f"{gac}.json"]
+    repo_root = Path(__file__).parent.parent
+    found = None
+    for root, dirs, files in os.walk(repo_root):
+        for fname in files:
+            if fname in candidates:
+                found = os.path.join(root, fname)
+                break
+        if found:
+            break
+    if found:
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = found
+        logger.info(f"Resolved GOOGLE_APPLICATION_CREDENTIALS to {found}")
+    else:
+        logger.warning(f"GOOGLE_APPLICATION_CREDENTIALS is set to '{gac}' but file was not found. Embedding init may fail.")
 
 # ----------------------------------------
 # Model Enums and Config
@@ -266,7 +287,13 @@ def call_llm(prompt: Any, model_name: str, model_provider: str, pydantic_model: 
             logger.error(f"Full traceback:\n{tb}")
 
             if agent_name:
-                progress.update_status(agent_name, None, f"Retry {attempt}/{max_retries}")
+                # progress might not be available in all runtimes; guard its usage
+                try:
+                    prog = globals().get("progress")
+                    if prog and hasattr(prog, "update_status"):
+                        prog.update_status(agent_name, None, f"Retry {attempt}/{max_retries}")
+                except Exception:
+                    logger.debug("progress update not available or failed; continuing without progress update")
             if attempt == max_retries:
                 logger.error(f"Max retries reached after {max_retries} attempts.")
                 return default_factory() if default_factory else create_default_response(pydantic_model)

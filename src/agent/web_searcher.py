@@ -35,14 +35,35 @@ def search_web(state: ChatState) -> ChatState:
     question = state.question
     web_results = web_search_tool.invoke(question)
 
+    # Tavily (or other search tools) may return a dict containing a 'results' list
+    results_list = []
+    if isinstance(web_results, dict) and "results" in web_results and isinstance(web_results["results"], list):
+        results_list = web_results["results"]
+    elif isinstance(web_results, list):
+        results_list = web_results
+    else:
+        # Single dict with fields that describe the answer; wrap it
+        results_list = [web_results]
+
     documents = []
-    for doc in web_results:
+    for doc in results_list:
         if isinstance(doc, dict):
-            documents.append(Document(metadata=dict(url=doc.get("url", ""), title=doc.get("title", "")), page_content=doc.get("content", "")))
+            # Try common fields for textual content
+            content = doc.get("content") or doc.get("answer") or doc.get("summary") or doc.get("snippet") or doc.get("text") or ""
+            # If the top-level doc contains nested 'results', flatten them
+            if not content and "results" in doc and isinstance(doc["results"], list):
+                for inner in doc["results"]:
+                    inner_content = None
+                    if isinstance(inner, dict):
+                        inner_content = inner.get("content") or inner.get("answer") or inner.get("summary") or inner.get("snippet") or inner.get("text")
+                    if inner_content:
+                        documents.append(Document(metadata=dict(url=inner.get("url", ""), title=inner.get("title", "")), page_content=inner_content))
+                continue
+
+            documents.append(Document(metadata=dict(url=doc.get("url", ""), title=doc.get("title", "")), page_content=content))
         elif isinstance(doc, str):
             documents.append(Document(metadata={}, page_content=doc))
         else:
-            # Handle other types by converting to string
             documents.append(Document(metadata={}, page_content=str(doc)))
     documents, stats = clean_documents(documents, verbose=True)
 

@@ -33,6 +33,9 @@ with st.sidebar:
     st.title("♻️ SusTech Recycling Agent")
     st.subheader("Our Mission 🌱")
 
+    # Region selector (Germany default) placed at the top of the sidebar for quick access
+    region = st.radio("Region", options=["Germany", "US"], index=0, key="region_radio")
+
     st.write(
         """
     We are dedicated to promoting sustainable recycling practices and educating communities about proper waste management.
@@ -180,7 +183,9 @@ def generate_answer(prompt: str, chat_history: list = None) -> tuple[str, dict]:
     if chat_history is None:
         chat_history = []
 
-    payload = {"question": prompt, "chat_history": chat_history}
+    # include selected region from sidebar (default to Germany)
+    selected_region = st.session_state.get("region_radio", "Germany")
+    payload = {"question": prompt, "chat_history": chat_history, "region": selected_region}
 
     try:
         response = requests.post(API_URL, json=payload, timeout=60)

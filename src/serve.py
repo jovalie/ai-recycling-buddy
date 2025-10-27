@@ -48,6 +48,7 @@ app.add_middleware(
 class QueryInput(BaseModel):
     question: str
     chat_history: List[str] = []
+    region: str = "Germany"
 
 
 class QueryOutput(BaseModel):
@@ -56,7 +57,7 @@ class QueryOutput(BaseModel):
 
 
 # === Core Functionality ===
-async def invoke_llm(question: str) -> Tuple[str, List[Any]]:
+async def invoke_llm(question: str, region: str = "Germany") -> Tuple[str, List[Any]]:
     logger.info("Invoking chatbot...")
     # progress.start()
     try:
@@ -79,6 +80,7 @@ async def invoke_llm(question: str) -> Tuple[str, List[Any]]:
                         "show_reasoning": True,
                         "model_name": model_name,
                         "model_provider": model_provider,
+                        "region": region,
                     },
                 }
             )
@@ -108,7 +110,7 @@ async def invoke_llm(question: str) -> Tuple[str, List[Any]]:
 
 @app.post("/query", response_model=QueryOutput)
 async def get_chat_response(input_data: QueryInput):
-    response, usage = await invoke_llm(input_data.question)
+    response, usage = await invoke_llm(input_data.question, region=getattr(input_data, "region", "Germany"))
     return QueryOutput(response=response, usage=usage)
 
 

@@ -17,7 +17,8 @@ load_dotenv()
 logger = get_caller_logger()
 
 # FAISS vector store path (replace database connection)
-VECTOR_STORE_PATH = Path(__file__).parent.parent.parent / "vector_store" / "recycling_kb_vectorstore/"
+# The vector store lives under src/vector_store in this project layout
+VECTOR_STORE_PATH = Path(__file__).parent.parent / "vector_store" / "recycling_kb_vectorstore"
 
 # Define the multi-query generation prompt
 multi_query_generation_prompt = PromptTemplate.from_template(
@@ -152,6 +153,9 @@ def retrieve_documents(state: ChatState) -> ChatState:
     llm = lambda prompt: call_llm(prompt=prompt, model_name=state.metadata["model_name"], model_provider=state.metadata["model_provider"], pydantic_model=None, agent_name="document_retriever", verbose=False)
 
     question = state.question
+    # include region information in query if provided
+    region = state.metadata.get("region", "Germany")
+    question_with_region = f"{question} (region: {region})"
 
     # Multi-query generator chain
     multi_query_generator = multi_query_generation_prompt | llm | (lambda x: [line.strip() for line in str(x.content).split("\n") if line.strip()])
@@ -165,7 +169,7 @@ def retrieve_documents(state: ChatState) -> ChatState:
 
     # Run multi-query RAG + MMR + RRF pipeline to get relevant results
     try:
-        rag_fusion_mmr_results = retrieval_chain_rag_fusion_mmr.invoke({"question": question, "num_queries": 3, "vectorstore_content_summary": vectorstore_content_summary})
+        rag_fusion_mmr_results = retrieval_chain_rag_fusion_mmr.invoke({"question": question_with_region, "num_queries": 3, "vectorstore_content_summary": vectorstore_content_summary})
 
         logger.info(f"Retrieval chain results: {rag_fusion_mmr_results}")
 
@@ -181,11 +185,37 @@ def retrieve_documents(state: ChatState) -> ChatState:
         # Convert retrieved documents into Document objects with metadata and page_content only
         formatted_doc_results = [Document(metadata={k: v for k, v in doc.metadata.items() if k != "rrf_score"}, page_content=doc.page_content) for doc in rag_fusion_mmr_results]  # Remove rrf score and document id
 
-        state.documents.extend(formatted_doc_results)
-        logger.info(f"✅ Added {len(formatted_doc_results)} documents to state")
+        # Prioritize documents that appear to match the requested region
+        def matches_region(doc: Document, region_str: str) -> bool:
+            r = region_str.lower()
+            # check metadata values
+            meta_vals = " ".join([str(v).lower() for v in doc.metadata.values() if v])
+            if r in meta_vals:
+                return True
+            # check common country tokens
+            country_tokens = {
+                "germany": ["germany", "de", "deutsch", ".de"],
+                "us": ["united states", "usa", "us", ".gov", "america"],
+            }
+            tokens = country_tokens.get(r, [r])
+            content_lower = (doc.page_content or "").lower()
+            for t in tokens:
+                if t in content_lower or t in meta_vals:
+                    return True
+            return False
+
+        prioritized = [d for d in formatted_doc_results if matches_region(d, region)]
+        others = [d for d in formatted_doc_results if not matches_region(d, region)]
+        ordered_results = prioritized + others
+
+        state.documents.extend(ordered_results)
+        logger.info(f"✅ Added {len(ordered_results)} documents to state (region prioritized={len(prioritized)})")
 
     except Exception as e:
+        import traceback as _tb
+
         logger.error(f"❌ Error during document retrieval: {e}")
+        logger.error("""Traceback (most recent call last):\n%s""" % _tb.format_exc())
         # Continue with empty documents rather than failing completely
 
     return state
