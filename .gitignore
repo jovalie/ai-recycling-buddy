@@ -1,0 +1,8 @@
+.env
+__pycache__
+pdf_info/*
+vector_store*
+.DS_Store
+.logs
+*.log
+vertex-ai-key.json

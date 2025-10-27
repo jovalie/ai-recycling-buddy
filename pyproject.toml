@@ -1,0 +1,62 @@
+[project]
+name = "recycling-agent"
+version = "0.1.0"
+description = ""
+authors = []
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+langchain = "^0.3.0"
+langchain-anthropic = "^0.3.5"
+langchain-groq = "^0.2.3"
+langchain-google-genai = "^2.0.11"
+langchain-google-vertexai = "^2.0.13"
+langchain-openai = "^0.3.5"
+langchain-deepseek = "^0.1.2"
+langchain-ollama = "^0.2.0"
+langchain-pymupdf4llm = "^0.2.0"
+langchain-huggingface = "^0.1.2"
+langchain-community = "^0.3.21"
+langchain-tavily = "^0.2.0"
+langgraph = "0.2.56"
+scikit-learn = "^1.6.1"
+pandas = "^2.1.0"
+# Bump numpy to a 2.x release to satisfy newer langchain-community constraints
+# langchain-community (and other modern libs) may require numpy >=2.1.0; pin to ^2.1.0
+numpy = "^2.1.0"
+python-dotenv = "1.0.0"
+matplotlib = "^3.9.2"
+tabulate = "^0.9.0"
+colorama = "^0.4.6"
+questionary = "^2.1.0"
+rich = "^13.9.4"
+streamlit = "^1.42.2"
+streamlit-feedback = "^0.1.4"
+jq = "^1.8.0"
+pydantic = "^2.11.3"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.1"
+langchain-postgres = "^0.0.15"
+psycopg = {extras = ["binary", "pool"], version = "^3.2.6"}
+unstructured = "^0.17.2"
+seaborn = "^0.13.2"
+faiss-cpu = "^1.11.0"
+torch = "^2.4.0"
+torchvision = "^0.19.0"
+tqdm = "^4.66.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.7.0"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 420
+target-version = ['py312']
+include = '\.pyi?$'
