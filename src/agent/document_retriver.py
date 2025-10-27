@@ -8,7 +8,7 @@ from langchain_community.vectorstores import FAISS  # FAISS vector store replace
 
 from dotenv import load_dotenv
 
-from .state import ChatState
+from agent.state import ChatState
 from utils.logging import get_caller_logger
 from utils.llm import call_llm, get_embedding_model
 from utils.metaprompt import vectorstore_content_summary

@@ -2,7 +2,7 @@
 from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel, Field
 
-from .state import ChatState
+from agent.state import ChatState
 from utils.logging import get_caller_logger
 from utils.metaprompt import vectorstore_content_summary
 from utils.llm import call_llm

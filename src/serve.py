@@ -7,7 +7,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from langchain_core.messages import HumanMessage
 
-from graph import build_rag_graph, save_graph_as_png
+# Add the src directory to the Python path so we can import from utils and agent modules
+import sys
+
+sys.path.insert(0, os.path.dirname(__file__))
+
+from .graph import build_rag_graph, save_graph_as_png
 
 # === Logging Setup ===
 file_path = os.path.realpath(__file__)

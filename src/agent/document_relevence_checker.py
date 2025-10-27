@@ -1,6 +1,6 @@
 import asyncio
 from langchain_core.prompts import PromptTemplate
-from .state import ChatState
+from agent.state import ChatState
 from utils.logging import get_caller_logger
 from utils.llm import call_llm
 from pydantic import BaseModel, StrictBool

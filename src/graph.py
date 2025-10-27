@@ -1,9 +1,14 @@
+import os
+import sys
+
+# Add the src directory to the Python path so we can import from utils and agent modules
+sys.path.insert(0, os.path.dirname(__file__))
+
 from langgraph.graph import StateGraph, END, START
 from langgraph.graph.state import CompiledGraph
 from langchain_core.runnables.graph import MermaidDrawMethod
 
 from agent.state import ChatState
-
 from agent.web_searcher import search_web
 from agent.document_retriver import retrieve_documents
 from agent.chatter import chatter_agent
@@ -70,12 +75,11 @@ def build_rag_graph():
     builder.add_edge("answer_generator", END)
     builder.add_edge("chatter", END)
 
-    return builder
+    return builder.compile()
 
 
 def test():
-    workflow = build_rag_graph()
-    agent = workflow.compile()
+    agent = build_rag_graph()
     save_graph_as_png(agent, "test_graph.png")
 
 

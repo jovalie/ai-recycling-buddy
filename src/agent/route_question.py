@@ -2,7 +2,7 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .state import ChatState, show_agent_reasoning
+from agent.state import ChatState, show_agent_reasoning
 from utils.llm import call_llm
 from utils.logging import get_caller_logger
 from utils.metaprompt import vectorstore_content_summary, system_relevant_scope

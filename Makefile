@@ -23,10 +23,10 @@ embed:
 	$(PYTHON) src/Knowledge.py
 
 api:
-	poetry run uvicorn src.serve:app --reload
+	PYTHONPATH=. poetry run uvicorn src.serve:app --reload
 
 ui:
-	poetry run streamlit run src/streamlit_ui.py
+	PYTHONPATH=. poetry run streamlit run src/streamlit_ui.py
 
 test:
 	@echo "Running local test script..."

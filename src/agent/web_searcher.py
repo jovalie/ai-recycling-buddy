@@ -3,7 +3,7 @@ from colorama import Fore, Style
 from langchain_core.documents import Document
 from langchain_tavily import TavilySearch
 
-from .state import ChatState
+from agent.state import ChatState
 from utils.logging import get_caller_logger
 from utils.cleaner import clean_documents
 
