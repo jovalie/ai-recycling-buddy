@@ -1,4 +1,4 @@
-# ♻️ AI Recycling Buddy
+# ♻️ AI Recycling Agent
 
 An intelligent AI-powered chatbot designed to help users navigate recycling laws and practices in the United States and Germany. Built with advanced RAG (Retrieval-Augmented Generation) technology, this chatbot provides accurate, region-specific recycling guidance.
 
