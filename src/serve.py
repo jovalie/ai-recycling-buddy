@@ -66,8 +66,7 @@ async def invoke_llm(question: str) -> Tuple[str, List[Any]]:
         # model_provider = "Ollama"
         selected_analysts = []
 
-        workflow = build_rag_graph(selected_analysts)
-        agent = workflow.compile()
+        agent = build_rag_graph()
         # save_graph_as_png(agent, os.path.join(log_dir, "graph.png"))
 
         try:

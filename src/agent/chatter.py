@@ -63,8 +63,8 @@ Always keep a short and concise manner of speaking.
 def chatter_agent(state: ChatState) -> ChatState:
     """Chatter Agent: Provides warm, fallback conversation when the input is off-topic or unclear."""
 
-    print("\n---CHIT-CHATTING---")
-    logger.info("[chatter_agent] Chit-chatting...")
+    print("\n---CHATTER---")
+    logger.info("[chatter_agent] Chatting...")
 
     current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 

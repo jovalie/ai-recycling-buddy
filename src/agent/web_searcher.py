@@ -35,7 +35,15 @@ def search_web(state: ChatState) -> ChatState:
     question = state.question
     web_results = web_search_tool.invoke(question)
 
-    documents = [Document(metadata=dict(url=doc["url"], title=doc["title"]), page_content=doc["content"]) if isinstance(doc, dict) else doc for doc in web_results]
+    documents = []
+    for doc in web_results:
+        if isinstance(doc, dict):
+            documents.append(Document(metadata=dict(url=doc.get("url", ""), title=doc.get("title", "")), page_content=doc.get("content", "")))
+        elif isinstance(doc, str):
+            documents.append(Document(metadata={}, page_content=doc))
+        else:
+            # Handle other types by converting to string
+            documents.append(Document(metadata={}, page_content=str(doc)))
     documents, stats = clean_documents(documents, verbose=True)
 
     state.documents.extend(documents)

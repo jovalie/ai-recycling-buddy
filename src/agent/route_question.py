@@ -25,11 +25,11 @@ You are an expert at analyzing user question and deciding which data source is b
                                                                                                                 
 ---                                                         
                                                               
-3. **Chitter-Chatter**: Use this if the question:
+3. **chatter**: Use this if the question:
    - Is **not related** to the scope below, or
    - Is too **broad, casual, or off-topic** to be answered using vectorstore or websearch.
    
-   Chitter-Chatter is a fallback agent that gives a friendly response and a follow-up to guide users back to relevant topics.
+   chatter is a fallback agent that gives a friendly response and a follow-up to guide users back to relevant topics.
                                                             
 ---
                                                             
@@ -39,7 +39,7 @@ Relevant questions are those related to **{system_relevant_scope}** and topics i
 ---                                                        
 
 Your Task:
-Analyze the user's question. Return a JSON object with one key `"signal"` and one value: `"Vectorstore"`, `"Websearch"`, or `"Chitter-Chatter"`.
+Analyze the user's question. Return a JSON object with one key `"signal"` and one value: `"Vectorstore"`, `"Websearch"`, or `"Chatter"`.
 
 """
 )
@@ -49,7 +49,7 @@ from typing_extensions import Literal
 
 
 class QueryRouterSignal(BaseModel):
-    signal: Literal["Websearch", "Vectorstore", "Chitter-Chatter"]
+    signal: Literal["Websearch", "Vectorstore", "Chatter"]
 
 
 # ------------------------ Routing Decision  ------------------------
@@ -61,7 +61,7 @@ def query_router_agent(state: ChatState):
        state (GraphState): Contains the user's input question.
 
     Returns:
-       str: One of 'Vectorstore', 'Websearch', or 'Chitter-Chatter'.
+       str: One of 'Vectorstore', 'Websearch', or 'chatter'.
     """
     logger.info("---ROUTING QUESTION---")
     question = state.messages[0].content
@@ -69,7 +69,7 @@ def query_router_agent(state: ChatState):
     query_router_prompt = query_router_prompt_template.format(system_relevant_scope=system_relevant_scope, vectorstore_content_summary=vectorstore_content_summary)
 
     def create_default_query_router_signal():
-        return QueryRouterSignal(signal="Chitter-Chatter", confidence=0.0, reasoning="Error in generating analysis; defaulting to Chitter-Chatter.")
+        return QueryRouterSignal(signal="chatter", confidence=0.0, reasoning="Error in generating analysis; defaulting to chatter.")
 
     prompt = [SystemMessage(query_router_prompt), question]
     response = call_llm(prompt=prompt, model_name=state.metadata["model_name"], model_provider=state.metadata["model_provider"], pydantic_model=QueryRouterSignal, agent_name="query_router", default_factory=create_default_query_router_signal, max_retries=1, verbose=False)

@@ -3,11 +3,11 @@ from dotenv import load_dotenv
 import os
 import base64
 import sys
+import requests
 
 # Add the src directory to the Python path
 sys.path.insert(0, os.path.dirname(__file__))
 
-from graph import build_rag_graph
 from langchain_core.messages import HumanMessage, AIMessage
 
 current_script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -15,7 +15,7 @@ repo_dir = os.path.dirname(current_script_dir)
 media_dir = os.path.join(repo_dir, "img")
 
 st.set_page_config(
-    page_title="Recycling Agent: Your Guide to Sustainable Recycling",
+    page_title="SusTech Recycling Agent: Your Guide to Sustainable Recycling",
     page_icon="♻️",
     layout="wide",
 )
@@ -60,7 +60,7 @@ with st.sidebar:
     )
 
     # Reset conversation button
-    if st.button("Reset Conversation 🔄", use_container_width=True):
+    if st.button("Reset Conversation 🔄", use_container_width=True, key="reset_button"):
         st.session_state.chat_history = []
         st.rerun()
 
@@ -171,14 +171,26 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 # Load environment variables
 load_dotenv()
 
-
-# Initialize the RAG graph
-@st.cache_resource
-def get_rag_graph():
-    return build_rag_graph()
+# API configuration
+API_URL = "http://localhost:8000/query"
 
 
-graph = get_rag_graph()
+def generate_answer(prompt: str, chat_history: list = None) -> tuple[str, dict]:
+    """Generate answer using the FastAPI backend."""
+    if chat_history is None:
+        chat_history = []
+
+    payload = {"question": prompt, "chat_history": chat_history}
+
+    try:
+        response = requests.post(API_URL, json=payload, timeout=60)
+        response.raise_for_status()
+        data = response.json()
+        return data["response"], data["usage"]
+    except requests.RequestException as e:
+        print(f"❌ Error talking to backend: {e}")
+        return "Sorry, something went wrong. Please make sure the FastAPI server is running.", {}
+
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
@@ -197,7 +209,7 @@ if not st.session_state.chat_history:
     with st.chat_message("ai"):
         st.markdown(
             """
-        **♻️ Hello! I'm your friendly Recycling Agent – your guide to sustainable recycling practices in the US and Germany.**
+        **♻️ Hello! I'm the SusTech Recycling Agent – your guide to sustainable recycling practices in the US and Germany.**
 
         I can help you with:
         - 🇺🇸 US recycling laws and regulations by state
@@ -222,18 +234,18 @@ if user_query:
     with st.chat_message("ai"):
         with st.spinner("🔍 Researching recycling information..."):
             try:
-                # Use the RAG graph to process the query
-                graph_output = graph.invoke({"question": str(user_query)})
-                final_answer = graph_output.get("generation", "I'm here to help with recycling questions. Could you please rephrase your question?")
+                # Use the API to get response and usage data
+                response, usage = generate_answer(str(user_query), [])
 
-                # If final_answer is callable, call it
-                if callable(final_answer):
-                    final_answer = final_answer()
+                st.markdown(response)
 
-                st.markdown(final_answer)
+                # Display usage information in expandable JSON format
+                with st.expander("📊 Full Agent Pipeline Data", expanded=False):
+                    st.json(usage)
 
-                print(f"Final answer: {final_answer}")
-                st.session_state.chat_history.append(AIMessage(final_answer))
+                print(f"Final answer: {response}")
+                print(f"Usage data keys: {list(usage.keys()) if isinstance(usage, dict) else 'Not a dict'}")
+                st.session_state.chat_history.append(AIMessage(response))
 
             except Exception as e:
                 error_msg = f"I apologize, but I encountered an error while processing your recycling question. Please try again or rephrase your question. Error: {str(e)}"

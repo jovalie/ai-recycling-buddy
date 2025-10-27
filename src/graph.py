@@ -45,7 +45,7 @@ def build_rag_graph():
     # === Query Router decides routing ===
     builder.add_conditional_edges(
         "query_router",
-        lambda state: state.metadata.get("signal", "Chitter-Chatter"),
+        lambda state: state.metadata.get("signal", "chatter"),
         path_map={
             "Websearch": "web_searcher",
             "Vectorstore": "document_retriever",
