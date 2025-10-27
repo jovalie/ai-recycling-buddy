@@ -17,16 +17,17 @@ An intelligent AI-powered chatbot designed to help users navigate recycling laws
 
 ## 📸 Screenshots
 
-### Main Interface
+### Welcome Interface
 ![Cover Page](img/cover-page.png)
+
+### German Recycling Examples
+![Germany Example 1](img/germany-example-1.png)
+![Germany Example 2](img/germany-example-2.png)
 
 ### US Recycling Examples
 ![US Example 1](img/US-example-1.png)
 ![US Example 2](img/US-example-2.png)
 
-### German Recycling Examples
-![Germany Example 1](img/germany-example-1.png)
-![Germany Example 2](img/germany-example-2.png)
 
 ## 🚀 Quick Start
 
