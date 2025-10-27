@@ -120,6 +120,12 @@ An intelligent AI-powered chatbot designed to help users navigate recycling laws
   - Tavily for web search
   - Google Vertex AI
 
+### Dialogue Flow with LangGraph
+
+![LangGraph Architecture](langgraph.png)
+
+*Figure: LangGraph workflow showing the RAG pipeline with query routing, document retrieval, web search, and answer generation nodes.*
+
 ### System Components
 
 1. **Document Processing Pipeline**

@@ -34,7 +34,7 @@ def build_rag_graph():
     builder.add_node("web_searcher", search_web)
     builder.add_node("document_retriever", retrieve_documents)
     builder.add_node("chatter", chatter_agent)
-    builder.add_node("query_rewriter", rewrite_query)
+    # builder.add_node("query_rewriter", rewrite_query)
     builder.add_node("answer_generator", answer_generator)
     builder.add_node("relevance_grader", check_relevance)
     builder.add_node("query_router", query_router_agent)
@@ -68,7 +68,7 @@ def build_rag_graph():
     builder.add_edge("web_searcher", "answer_generator")
 
     # === Rerouting paths ===
-    builder.add_edge("query_rewriter", "document_retriever")
+    # builder.add_edge("query_rewriter", "document_retriever")
     # builder.add_edge("answer_generator", "evaluate_answer")
 
     # === End paths ===
