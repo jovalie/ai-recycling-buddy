@@ -11,6 +11,32 @@ from utils.metaprompt import goals_as_str, system_relevant_scope
 logger = get_caller_logger()
 
 
+def detect_language(text: str) -> str:
+    """
+    Simple language detection for English and German.
+    Returns 'German' if German is detected, otherwise 'English'.
+    """
+    text_lower = text.lower()
+
+    # Check for German-specific characters
+    german_chars = ["ä", "ö", "ü", "ß", "Ä", "Ö", "Ü"]
+    if any(char in text for char in german_chars):
+        return "German"
+
+    # Check for common German words
+    german_words = ["der", "die", "das", "und", "ist", "in", "mit", "auf", "für", "von", "zu", "als", "auch", "wie", "nach", "aus", "bei", "durch", "für", "gegen", "ohne", "um", "während", "wieder", "was", "wer", "wie", "wo", "warum", "wann", "welche", "welcher", "welches", "müll", "recycling", "abfall", "entsorgung", "kompost", "papier", "glas", "plastik", "metall", "elektro", "batterie"]
+
+    german_word_count = sum(1 for word in german_words if word in text_lower)
+    total_words = len(text.split())
+
+    # If more than 10% of words are German-specific, classify as German
+    if total_words > 0 and german_word_count / total_words > 0.1:
+        return "German"
+
+    # Default to English
+    return "English"
+
+
 def create_citation_context(documents):
     """
     Creates a context string with numbered sources for the LLM to reference.
@@ -110,6 +136,9 @@ You provide accurate information about recycling practices, waste sorting, local
 **Region Context**:
 The user is asking about recycling practices in {region}, be sure to mention this in your answers accordingly.
 
+**Language Context**:
+The user is asking in {user_language}. Respond in {user_language} using appropriate vocabulary and phrasing for that language.
+
 **Available Sources for Citation:**
 {source_context}
 
@@ -132,15 +161,16 @@ Use the following background information to help answer the question:
 3. If the answer is **not present** in the knowledge, say so explicitly.
 4. Keep the answer **concise**, **accurate**, and **focused** on the question.
 5. Mention the region ({region}) in your response where relevant, especially when discussing local laws or practices.
-6. End your response with a **References** section that includes:
+6. Respond in {user_language} - use the appropriate language, vocabulary, and cultural context for {user_language} speakers.
+7. End your response with a **References** section that includes:
    - Full citations with clickable links to the source
    - Meaningful quotes from the page content that support your answer
    - For recycling guides with multiple relevant sections, show different page links and quotes
-7. Format references as:
+8. Format references as:
    - Single section: `*   [i] Author (Year). [Title](file://path#page)\n    > "Meaningful quote from content"`
    - Multiple sections: `*   [i] Author (Year). *Title*\n    - [Page X](file://path#X): "Quote from page X"\n    - [Page Y](file://path#Y): "Quote from page Y"`
    - Web sources: `*   [i] [Title](URL)\n    > "Meaningful quote from content"`
-8. Only answer questions relevant to recycling, waste management, sustainability, and environmental practices. For all other queries, politely decline.
+9. Only answer questions relevant to recycling, waste management, sustainability, and environmental practices. For all other queries, politely decline.
 
 ---
 **Important**:
@@ -194,6 +224,10 @@ def answer_generator(state):
     region = state.metadata.get("region", "Germany")
     logger.info(f"Region from metadata: {region}")
 
+    # Detect user language
+    user_language = detect_language(question)
+    logger.info(f"Detected user language: {user_language}")
+
     # Ensure all documents are LangChain Document objects (convert from dicts if needed)
     documents = [Document(metadata=doc["metadata"], page_content=doc["page_content"]) if isinstance(doc, dict) else doc for doc in documents]
 
@@ -201,7 +235,7 @@ def answer_generator(state):
     source_context, references_dict = create_citation_context(documents)
 
     # Format the prompt for the answer generator
-    prompt = answer_generator_prompt_template.format(current_datetime=current_datetime, context=documents, question=question, goals_as_str=goals_as_str, source_context=source_context, region=region)
+    prompt = answer_generator_prompt_template.format(current_datetime=current_datetime, context=documents, question=question, goals_as_str=goals_as_str, source_context=source_context, region=region, user_language=user_language)
 
     logger.info(f"Answer generator prompt: {prompt}")
     response = call_llm(prompt=prompt, model_name=state.metadata["model_name"], model_provider=state.metadata["model_provider"], pydantic_model=None, agent_name="answer_generator_agent")
