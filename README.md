@@ -250,20 +250,6 @@ python run_evaluation.py
 python generate_report.py
 ```
 
-### How Evaluation Works
-
-The evaluation system uses the **FastAPI server** to ensure consistent testing:
-
-1. **Server Management**: Automatically checks if the server is running on `localhost:8000`
-2. **Auto-Start**: If server isn't running, starts it automatically using `serve.py`
-3. **HTTP Queries**: Makes HTTP requests to `/query` endpoint with region-specific parameters
-4. **German Bin Support**: Properly recognizes German recycling bin names:
-   - `Gelber Sack` (Yellow Bag) - plastics and metals
-   - `Altglascontainer` (Glass Container) - glass bottles/jars
-   - `Altpapier` (Paper Recycling) - paper and cardboard
-   - `Restmüll` (General Waste/Landfill) - non-recyclable waste
-   - `Sammelstelle` (Collection Point) - hazardous/special waste
-
 ### Test Case Examples
 
 **English (US)**:
@@ -275,33 +261,6 @@ The evaluation system uses the **FastAPI server** to ensure consistent testing:
 - "Wie recycelt man eine Plastikflasche?" → "Gelber Sack - Deckel abnehmen"
 - "Wohin kommt Alufolie?" → "Gelber Sack"
 - "Kann man Pizzakartons recyceln?" → "Restmüll - verschmutzt"
-
-### Evaluation Output
-
-The evaluation suite generates:
-- `evaluation_test_cases.json`: Generated test cases
-- `evaluation_results.json`: Raw evaluation results
-- `evaluation_report.txt`: Text summary report
-- `evaluation_details.csv`: Detailed CSV report
-- `evaluation_charts/`: Visualizations and charts
-
-### Understanding Results
-
-The evaluation measures:
-- **Overall Accuracy**: Percentage of correct recycling advice
-- **Regional Performance**: Accuracy for US vs Germany
-- **Language Performance**: Accuracy for English vs German
-- **Category Performance**: Accuracy by material type (plastic, glass, paper, etc.)
-- **Response Time**: Average time to generate answers
-- **Error Analysis**: System errors and failure modes
-
-### Achieved Performance
-
-✅ **Overall**: 85.61%
-✅ **Regional**: US 87.8%, Germany 83.3%
-✅ **Language**: English 87.8%, German 83.3%
-✅ **Response time**: <3 seconds average (target met)
-
 
 ## 🙏 Acknowledgments
 
