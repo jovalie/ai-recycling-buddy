@@ -90,16 +90,21 @@ The evaluation framework implements a client-server architecture:
 - **Network**: Localhost HTTP communication
 - **Timeout**: 60-second query timeout per test case
 
-### 3.2 Categorization Algorithm
+### 3.2 Categorization Algorithm with `ResponseSimplifier`
 
-#### Keyword Taxonomy
-To correlate complex generationsThe system employs a hierarchical keyword matching approach with differential weighting:
+#### How `ResponseSimplifer` Works
+The system looks for different types of words in the assistant's answer and gives them different point values:
 
-**Primary Keywords (Weight: 3.0)** - Core material identifiers
+- **Main material words** (like "glass," "plastic," "metal"): 3 points each
+- **Bin/container words** (like "recycling bin," "blue bin"): 1.5 points each  
+- **German compound words** (like "Glasflasche," "Aluminiumdosen"): 2.5 points each
 
-**Secondary Keywords (Weight: 1.5)** - Bin/container terminology
+`ResponseSimplifer` adds up all the points for each material type. Whichever material gets the most points determines what the `ResponseSimplifer` believes the agent is recommending.
 
-**German Compounds (Weight: 2.5)** - Complex German word formations
+#### Decision Threshold
+- **Categorization Threshold**: score > 0.5 (prevents false positives)
+- **Fallback Category**: "Unknown" for scores below threshold
+- **Normalization**: Bilingual category mapping (e.g., "Glas" → "glass (Glas)")
 
 **Example 1: Glass Bottle Response**
 ```
@@ -179,25 +184,10 @@ Total Scores:
 Result: Correctly categorized as "hazardous" (German compounds reinforce hazardous classification despite metal content)
 ```
 
-#### How `ResponseSimplifer` Works
-The system looks for different types of words in the assistant's answer and gives them different point values:
-
-- **Main material words** (like "glass," "plastic," "metal"): 3 points each
-- **Bin/container words** (like "recycling bin," "blue bin"): 1.5 points each  
-- **German compound words** (like "Glasflasche," "Aluminiumdosen"): 2.5 points each
-
-`ResponseSimplifer` adds up all the points for each material type. Whichever material gets the most points determines what the `ResponseSimplifer` believes the agent is recommending.
-
-#### Decision Threshold
-- **Categorization Threshold**: score > 0.5 (prevents false positives)
-- **Fallback Category**: "Unknown" for scores below threshold
-- **Normalization**: Bilingual category mapping (e.g., "Glas" → "glass (Glas)")
-
 ### 3.3 Evaluation Metrics
 
 #### Basic Performance Metrics
 - **Accuracy**: Proportion of correctly categorized responses
-- **Error Rate**: Proportion of failed server requests
 
 ## 4. Experimental Results
 
