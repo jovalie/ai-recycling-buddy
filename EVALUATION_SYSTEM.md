@@ -20,11 +20,11 @@ The evaluation dataset consists of 180 test cases derived from 60 unique recycla
 
 | Category | English Name | German Name | US Items | German Items | Total Items | Test Cases |
 |----------|-------------|-------------|----------|--------------|-------------|------------|
-| Glass | glass (Glas) | Glas | 6 | 6 | 12 | 36 |
-| Paper | paper (Papier) | Papier | 6 | 6 | 12 | 36 |
-| Plastic | plastic (Kunststoff) | Kunststoff | 7 | 7 | 14 | 42 |
-| Metal | metal (Metall) | Metall | 5 | 5 | 10 | 30 |
-| Hazardous | hazardous (Sondermüll) | Sondermüll | 6 | 6 | 12 | 36 |
+| Glass | glass | Glas | 6 | 6 | 12 | 36 |
+| Paper | paper | Papier | 6 | 6 | 12 | 36 |
+| Plastic | plastic | Kunststoff | 7 | 7 | 14 | 42 |
+| Metal | metal | Metall | 5 | 5 | 10 | 30 |
+| Hazardous | hazardous | Sondermüll | 6 | 6 | 12 | 36 |
 | **Total** | | | **30** | **30** | **60** | **180** |
 
 
