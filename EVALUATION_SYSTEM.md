@@ -232,69 +232,18 @@ python src/evaluation/run_evaluation.py --verbose
 #### Environmental Impact
 - **Accuracy Requirements**: Incorrect recycling guidance can harm environmental efforts
 - **Bias Assessment**: System performance varies across geographic groups, scope of evaluation is limited to Germany and the United States
-- **Accessibility**: While ultilingual support improves inclusivity, we have only evaluated on English and German
-- **Transparency**: Open evaluation framework enables public scrutiny
+- **Accessibility**: While multilingual support improves inclusivity, we have only evaluated on English and German
+- **Transparency**: Open-source evaluation framework may enable public scrutiny
 
 #### Fairness Analysis
 - **Regional Equity**: Balanced performance across US and German contexts
 - **Linguistic Justice**: Equivalent support for English and German speakers
 - **Category Balance**: Proportional evaluation across material types
-- **Error Distribution**: No systematic bias toward specific user groups
+
 
 ### 8.3 Mitigation Strategies
-- **Continuous Monitoring**: Regular re-evaluation against updated regulations
+- **Continuous Monitoring**: Regularly scheduled re-evaluation against updated regulations
 - **User Feedback Integration**: Mechanisms for reporting incorrect guidance
 - **Fallback Procedures**: Clear instructions for uncertain categorizations
-- **Expert Oversight**: Human review processes for critical decisions
-
-## 7. Implementation Details
-
-
-#### Data Flow
-1. **Dataset Generation**: Create randomized test cases from item templates
-2. **Server Queries**: Submit questions to FastAPI endpoint
-3. **Response Processing**: Extract and normalize AI responses
-4. **Categorization**: Apply keyword matching algorithm
-5. **Statistical Analysis**: Calculate performance metrics
-6. **Results Persistence**: Save comprehensive evaluation data
-
-### 9.2 Algorithm Parameters
-
-#### Keyword Weights
-- **Primary Keywords**: 3.0 (material identifiers)
-- **Secondary Keywords**: 1.5 (bin terminology)
-- **German Compounds**: 2.5 (complex formations)
-
-#### Decision Parameters
-- **Categorization Threshold**: 0.5 (false positive prevention)
-- **Query Timeout**: 60 seconds (server responsiveness)
-- **Server Startup Timeout**: 60 seconds (infrastructure reliability)
-- **Inter-query Delay**: 0.1 seconds (system stability)
-
-### 9.3 Performance Optimizations
-- **Asynchronous Processing**: Concurrent evaluation of test cases
-- **Connection Pooling**: Efficient server communication
-- **Memory Management**: Streaming result processing
-- **Error Recovery**: Graceful handling of server failures
-
-## 8. Possible Future Research Directions
-
-### 10.1 Methodology Improvements
-- **Machine Learning Integration**: Transition from rule-based to ML-powered categorization
-- **Expanded Linguistic Coverage**: Support for additional European languages
-- **Dynamic Test Generation**: AI-driven creation of challenging test cases
-- **Real-time Evaluation**: Continuous performance monitoring in production
-
-### 10.2 Dataset Enhancements
-- **Scale Expansion**: Increase test case diversity and volume
-- **Edge Case Coverage**: Include ambiguous and challenging scenarios
-- **User Behavior Modeling**: Incorporate real user query patterns
-- **Temporal Evolution**: Track performance changes over time
-
-### 10.3 System Advancements
-- **Context Awareness**: Multi-turn conversation understanding
-- **Visual Recognition**: Image-based material identification
-- **Personalization**: User-specific recycling preferences
-- **Integration**: Connection with waste management systems
-
-]
+- **Human Leadership**: Our system provides guidance. Humans make the impact.
+This AI assistant offers information to support better recycling decisions, environmental outcomes depend entirely on what people do with that information. While technology exists to provide guidance, ultimately final impact is our responsibility.
