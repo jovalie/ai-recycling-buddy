@@ -1,4 +1,4 @@
-# Comprehensive Evaluation Framework for SusTech Recycling Agent
+# Comprehensive Evaluation Framework for AI Recycling Agent
 
 ## Abstract
 
