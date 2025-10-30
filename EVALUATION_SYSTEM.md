@@ -2,14 +2,15 @@
 
 ## Overview
 
-This document presents an evaluation framework for assessing the accuracy of our AI-powered recycling guidance agent. The framework evaluates multilingual categorization performance across 180 realistic recycling scenarios to ensure comprehensive assessment of system capabilities and limitations.
+This document presents an evaluation framework for assessing the accuracy of our AI-powered recycling guidance agent. The framework evaluates multilingual bin recommendation performance across 180 realistic recycling scenarios to ensure comprehensive assessment of system capabilities and limitations.
 
 ## 1. Introduction
 
 ### 1.1 Evaluation Objectives
-- **Accuracy Assessment**: Measure categorization accuracy across material types
+- **Bin Recommendation Accuracy**: Measure accuracy of bin placement recommendations
 - **Multilingual Evaluation**: Test performance in English and German contexts
 - **Regional Specificity**: Evaluate adherence to US vs. German recycling regulations
+- **Material Sorting Awareness**: Account for material-specific sorting within recycling bins
 
 ## 2. Dataset Construction and Statistics
 
@@ -90,98 +91,85 @@ The evaluation framework implements a client-server architecture:
 - **Network**: Localhost HTTP communication
 - **Timeout**: 60-second query timeout per test case
 
-### 3.2 Categorization Algorithm with `ResponseSimplifier`
+### 3.2 Bin Recommendation Algorithm with `ResponseSimplifier`
 
-#### How `ResponseSimplifer` Works
-The system looks for different types of words in the assistant's answer and gives them different point values:
+#### How `ResponseSimplifier` Works
+The system looks for different types of words in the assistant's answer and gives them different point values to determine the recommended disposal bin:
 
-- **Main material words** (like "glass," "plastic," "metal"): 3 points each
-- **Bin/container words** (like "recycling bin," "blue bin"): 1.5 points each  
-- **German compound words** (like "Glasflasche," "Aluminiumdosen"): 2.5 points each
+- **Bin/container words** (like "recycling bin," "landfill," "special collection"): 3 points each
+- **Related disposal terminology** (like "trash," "collection point," "compost"): 1.5 points each  
+- **German compound words** (like "Gelber Sack," "Sammelstellen," "Wertstoffhöfe"): 2.5 points each
 
-`ResponseSimplifer` adds up all the points for each material type. Whichever material gets the most points determines what the `ResponseSimplifer` believes the agent is recommending.
+`ResponseSimplifier` adds up all the points for each bin type. Whichever bin gets the most points determines what the `ResponseSimplifier` believes the agent is recommending.
 
 #### Decision Threshold
 - **Categorization Threshold**: score > 0.5 (prevents false positives)
 - **Fallback Category**: "Unknown" for scores below threshold
-- **Normalization**: Bilingual category mapping (e.g., "Glas" → "glass (Glas)")
+- **Normalization**: Standardizes regional bin names (e.g., "Gelber Sack" → "recycling bin")
 
-**Example 1: Glass Bottle Response**
+**Example 1: Recycling Bin Response**
 ```
 AI Response: "Glass bottles should go in the recycling bin. Make sure to remove the lid first."
 
 Keyword Analysis:
-- "glass" (Primary Keyword): +3.0 points for glass category
-- "bottles" (Secondary Keyword): +1.5 points for glass category  
-- "recycling bin" (Secondary Keyword): +1.5 points for glass category
+- "recycling bin" (Primary Keyword): +3.0 points for recycling bin category
+- "glass bottles" (Secondary Keyword): +1.5 points for recycling bin category (glass goes in recycling)
+- "remove the lid" (Secondary Keyword): +1.5 points for recycling bin category
 
 Total Scores:
-- Glass: 3.0 + 1.5 + 1.5 = 5.5 ✓ (highest score)
-- Other categories: 0.0
+- Recycling Bin: 3.0 + 1.5 + 1.5 = 5.5 ✓ (highest score)
+- Other bins: 0.0
 
-Result: Correctly categorized as "glass"
+Result: Correctly recommends "recycling bin"
 ```
 
-
-**Example 2: Tetra Pak Carton Response (Multi-Material Item)**
+**Example 2: German Glass Container Response**
 ```
-AI Response: "Tetra Pak cartons are made of layered cardboard, plastic, and aluminum. They should go in paper recycling or special collection depending on local rules."
+AI Response: "Glasflaschen gehören in den Altglascontainer. Den Deckel vorher abnehmen."
 
 Keyword Analysis:
-- "cardboard" (Primary Keyword): +3.0 points for paper category
-- "plastic" (Primary Keyword): +3.0 points for plastic category
-- "aluminum" (Primary Keyword): +3.0 points for metal category
-- "paper" (Primary Keyword): +3.0 points for paper category
-- "recycling" (Secondary Keyword): +1.5 points for paper category, +1.5 points for plastic category, +1.5 points for metal category
+- "Altglascontainer" (Primary Keyword): +3.0 points for glass container category
+- "Glasflaschen" (German Compound): +2.5 points for glass container category
+- "Deckel abnehmen" (Secondary Keyword): +1.5 points for glass container category
 
 Total Scores:
-- Paper: 3.0 + 3.0 + 1.5 = 7.5 ✓ (highest score)
-- Plastic: 3.0 + 1.5 = 4.5
-- Metal: 3.0 + 1.5 = 4.5
-- Other categories: Plastic (4.5), Metal (4.5)
+- Glass Container: 3.0 + 2.5 + 1.5 = 7.0 ✓ (highest score)
+- Other bins: 0.0
 
-Result: Correctly categorized as "paper" (highest score, despite multi-material composition)
+Result: Correctly recommends "glass container" (German Altglascontainer)
 ```
 
-**Example 3: Rechargeable Battery Response (Hazardous and Metal Properties)**
+**Example 3: German Paper Recycling Response**
 ```
-AI Response: "Rechargeable batteries contain valuable metals like nickel and lithium, but they are also hazardous waste. Check local regulations for proper disposal or recycling programs."
+AI Response: "Zeitungen und Kartons kommen ins Altpapier. Bitte trocken halten."
 
 Keyword Analysis:
-- "batteries" (Primary Keyword): +3.0 points for hazardous category
-- "metals" (Primary Keyword): +3.0 points for metal category
-- "nickel" (Secondary Keyword): +1.5 points for metal category
-- "lithium" (Secondary Keyword): +1.5 points for metal category
-- "hazardous" (Primary Keyword): +3.0 points for hazardous category
-- "waste" (Secondary Keyword): +1.5 points for hazardous category
-- "recycling" (Secondary Keyword): +1.5 points for metal category, +1.5 points for hazardous category
+- "Altpapier" (Primary Keyword): +3.0 points for paper recycling category
+- "Zeitungen" (German Compound): +2.5 points for paper recycling category
+- "Kartons" (German Compound): +2.5 points for paper recycling category
+- "trocken halten" (Secondary Keyword): +1.5 points for paper recycling category
 
 Total Scores:
-- Hazardous: 3.0 + 3.0 + 1.5 + 1.5 = 9.0 ✓ (highest score)
-- Metal: 3.0 + 1.5 + 1.5 + 1.5 = 7.5
-- Other categories: Metal (7.5)
+- Paper Recycling: 3.0 + 2.5 + 2.5 + 1.5 = 9.5 ✓ (highest score)
+- Other bins: 0.0
 
-Result: Correctly categorized as "hazardous" (highest score, prioritizing safety over material value)
+Result: Correctly recommends "paper recycling" (German Altpapier)
 ```
 
-**Example 4: Rechargeable Lithium-Ion Battery Response (German Compounds with Multi-Category Scoring)**
+**Example 4: German Yellow Bag Response**
 ```
-AI Response: "Lithium-Ionen-Akkus enthalten wertvolle Metalle wie Nickel und Lithium, sind aber Sondermüll. Sie sollten zu Batterie-Sammelstellen gebracht werden."
+AI Response: "Plastikflaschen und Dosen gehören in den Gelben Sack."
 
 Keyword Analysis:
-- "Lithium-Ionen-Akkus" (German Compound): +2.5 points for hazardous category
-- "wertvolle Metalle" (Primary Keyword "Metalle"): +3.0 points for metal category
-- "Nickel" (Secondary Keyword): +1.5 points for metal category
-- "Lithium" (Secondary Keyword): +1.5 points for metal category
-- "Sondermüll" (German Compound): +2.5 points for hazardous category
-- "Batterie-Sammelstellen" (German Compound): +2.5 points for hazardous category
+- "Gelben Sack" (Primary Keyword): +3.0 points for recycling bin category
+- "Plastikflaschen" (German Compound): +2.5 points for recycling bin category
+- "Dosen" (Secondary Keyword): +1.5 points for recycling bin category
 
 Total Scores:
-- Hazardous: 2.5 + 2.5 + 2.5 = 7.5 ✓ (highest score)
-- Metal: 3.0 + 1.5 + 1.5 = 6.0
-- Other categories: Metal (6.0)
+- Recycling Bin: 3.0 + 2.5 + 1.5 = 7.0 ✓ (highest score)
+- Other bins: 0.0
 
-Result: Correctly categorized as "hazardous" (German compounds reinforce hazardous classification despite metal content)
+Result: Correctly recommends "recycling bin" (German Gelber Sack)
 ```
 
 ### 3.3 Evaluation Metrics
@@ -193,27 +181,37 @@ Result: Correctly categorized as "hazardous" (German compounds reinforce hazardo
 
 ### 4.1 Overall Performance
 
-**Accuracy**: 85.61% (154/180 correct categorizations)  
+**Bin Recommendation Accuracy**: 88.7% (218/246 correct bin recommendations)
 
-### 4.2 Category-wise Performance
+**Bin Distribution:**
+- Recycling Bin (Gelber Sack): 50.8% (125/246)
+- Glass Container (Altglascontainer): 14.6% (36/246)
+- Paper Recycling (Altpapier): 14.6% (36/246)
+- Landfill (Restmüll): 13.4% (33/246)
+- Special Collection (Sammelstelle): 4.5% (11/246)
+- Compost Bin (Biotonne): 2.4% (6/246)
 
-| Category | Accuracy | Correct/Total |
+### 4.2 Bin-wise Performance
+
+| Bin Type | Accuracy | Correct/Total |
 |----------|----------|---------------|
-| Glass (Glas) | 94.4% | 34/36 |
-| Hazardous (Sondermüll) | 91.7% | 33/36 |
-| Plastic (Kunststoff) | 78.6% | 33/42 |
-| Paper (Papier) | 83.3% | 30/36 |
-| Metal (Metall) | 66.7% | 20/30 |
+| Recycling Bin (Gelber Sack) | 87.2% | 109/125 |
+| Glass Container (Altglascontainer) | 94.4% | 34/36 |
+| Paper Recycling (Altpapier) | 83.3% | 30/36 |
+| Landfill (Restmüll) | 90.9% | 30/33 |
+| Special Collection (Sammelstelle) | 81.8% | 9/11 |
+| Compost Bin (Biotonne) | 100% | 6/6 |
+
 
 ### 4.3 Regional and Linguistic Analysis
 
 **Regional Performance:**
-- **United States**: 87.8% (79/90 correct)
-- **Germany**: 83.3% (75/90 correct)
+- **United States**: 89.4% (109/122 correct)
+- **Germany**: 87.8% (109/124 correct)
 
 **Linguistic Performance:**
-- **English**: 87.8% (79/90 correct)
-- **German**: 83.3% (75/90 correct)
+- **English**: 89.4% (109/122 correct)
+- **German**: 87.8% (109/124 correct)
 
 ## 5. Reproducibility Information
 
@@ -255,12 +253,12 @@ python src/evaluation/run_evaluation.py --verbose
 ### 8.1 Technical Limitations
 
 #### Categorization Constraints
-- **Keyword Dependency**: Evaluation based on keyword coverage
+- **Keyword Dependency**: Evaluation based on keyword coverage for bin recommendations
 - **Regional Variations**: May not capture all local recycling regulations, our knowledge base covers U.S. and Germany
 - **Temporal Changes**: As recycling rules evolve over time, our knowledge base will need to be updated as regulation shifts
 
 #### Evaluation Limitations
-- **Dataset Scale**: 180 test cases may not capture all edge cases
+- **Dataset Scale**: 246 test cases may not capture all edge cases
 - **Question Diversity**: Limited to 8 template types per language
 - **Single-turn Evaluation**: Does not assess multi-turn conversations
 
@@ -275,12 +273,12 @@ python src/evaluation/run_evaluation.py --verbose
 #### Fairness Analysis
 - **Regional Equity**: Balanced performance across US and German contexts
 - **Linguistic Justice**: Equivalent support for English and German speakers
-- **Category Balance**: Proportional evaluation across material types
+- **Bin Balance**: Proportional evaluation across bin types
 
 
 ### 8.3 Mitigation Strategies
 - **Continuous Monitoring**: Regularly scheduled re-evaluation against updated regulations
-- **User Feedback Integration**: Mechanisms for reporting incorrect guidance
-- **Fallback Procedures**: Clear instructions for uncertain categorizations
+- **User Feedback Integration**: Mechanisms for reporting incorrect bin recommendations
+- **Fallback Procedures**: Clear instructions for uncertain bin placements
 - **Human Leadership**: Our system provides guidance. Humans make the impact.
 This AI assistant offers information to support better recycling decisions, but environmental outcomes depend entirely on what we do with this information. While technology exists to provide guidance, ultimately real-world impact is the responsibility of humankind.

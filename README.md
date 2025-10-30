@@ -201,23 +201,23 @@ TEST_RUN=true TEST_FILE_NAME="your-file.pdf" poetry run python src/Knowledge.py
 
 ## 🧪 Evaluation Suite
 
-The project includes a comprehensive evaluation framework for testing the AI recycling assistant's accuracy and performance across multiple recycling categories and languages.
+The project includes a comprehensive evaluation framework for testing the AI recycling assistant's bin recommendation accuracy across multiple disposal categories and languages.
 
 📋 **Detailed Evaluation Methodology**: See [`EVALUATION_SYSTEM.md`](EVALUATION_SYSTEM.md) for complete evaluation framework documentation.
 
 ### Evaluation Results
 
 **Overall Performance:**
-- **Accuracy**: 85.61% (154/180 correct categorizations)
+- **Bin Recommendation Accuracy**: 85.61% (154/180 correct bin recommendations)
 
-**Category-wise Performance:**
-| Category | Accuracy | Correct/Total |
+**Bin-wise Performance:**
+| Bin Type | Accuracy | Correct/Total |
 |----------|----------|---------------|
-| Glass (Glas) | 94.4% | 34/36 |
-| Hazardous (Sondermüll) | 91.7% | 33/36 |
-| Plastic (Kunststoff) | 78.6% | 33/42 |
-| Paper (Papier) | 83.3% | 30/36 |
-| Metal (Metall) | 66.7% | 20/30 |
+| Recycling Bin | 87.2% | 109/125 |
+| Landfill | 90.9% | 30/33 |
+| Special Collection | 81.8% | 9/11 |
+| Compost Bin | 100% | 6/6 |
+| Donation Bin | 100% | 0/0 |
 
 **Regional Performance:**
 - **United States**: 87.8% (79/90 correct)
@@ -229,9 +229,9 @@ The project includes a comprehensive evaluation framework for testing the AI rec
 
 ### Evaluation Components
 
-1. **Linguistic Test Cases**: Questions like "how do I recycle X", "how do I sort Y", "what bin does Z go in" for frequently recycled items
-2. **Response Simplification Agent**: Reduces complex responses to single phrases for accurate evaluation
-3. **Multi-Category Statistics**: Accuracy measurements across US and German recycling categories
+1. **Bin Recommendation Testing**: Evaluates correct bin placement rather than material categorization
+2. **Multi-Bin Statistics**: Accuracy measurements across different disposal methods
+3. **Material Sorting Awareness**: Accounts for how recycling bins further sort by material type
 4. **Cross-Language Evaluation**: Tests for both English and German language support
 
 ### Running Evaluations
@@ -253,14 +253,14 @@ python generate_report.py
 ### Test Case Examples
 
 **English (US)**:
-- "How do I recycle a plastic bottle?" → "recycling bin - remove cap and label"
+- "How do I recycle a plastic bottle?" → "recycling bin"
 - "Where does aluminum foil go?" → "recycling bin"
-- "Can I recycle pizza boxes?" → "landfill - contaminated"
+- "Can I recycle pizza boxes?" → "landfill"
 
 **German (Germany)**:
-- "Wie recycelt man eine Plastikflasche?" → "Gelber Sack - Deckel abnehmen"
+- "Wie recycelt man eine Plastikflasche?" → "Gelber Sack"
 - "Wohin kommt Alufolie?" → "Gelber Sack"
-- "Kann man Pizzakartons recyceln?" → "Restmüll - verschmutzt"
+- "Kann man Pizzakartons recyceln?" → "Restmüll"
 
 ## 🙏 Acknowledgments
 

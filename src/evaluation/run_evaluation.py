@@ -22,24 +22,51 @@ import argparse
 
 
 class ResponseSimplifier:
-    """Categorizes AI responses into material categories for evaluation."""
+    """Categorizes AI responses into bin categories for evaluation."""
 
     def __init__(self):
-        # Material category keywords and bin mappings with weights
+        # Bin category keywords with weights
         self.category_keywords = {
-            "glass (Glas)": {"primary": ["glas", "glass", "glasflasche", "glass bottle", "glass jar", "altglas"], "secondary": ["glascontainer", "altglascontainer", "glasiglus", "glass recycling bin", "glass bin"], "german_compounds": ["glasflaschen", "glasbehälter", "glascontainer"], "weight": 1.0},
-            "paper (Papier)": {"primary": ["papier", "paper", "karton", "cardboard", "zeitung", "newspaper", "altpapier", "tetra pak", "milk carton", "pizza box", "pizzakarton"], "secondary": ["blaue tonne", "altpapier", "papiercontainer", "papiertonne", "blue bin", "paper recycling bin", "cardboard bin"], "german_compounds": ["papierschnipsel", "kartons", "zeitungen"], "weight": 1.0},
-            "plastic (Kunststoff)": {"primary": ["kunststoff", "plastic", "plastik", "plastikflasche", "plastic bottle", "plastic bag", "styropor", "styrofoam", "polystyrene", "cd", "dvd"], "secondary": ["gelbe tonne", "gelber sack", "wertstofftonne", "kunststoffcontainer", "yellow bin", "plastic recycling bin", "recycling bin"], "german_compounds": ["plastikflaschen", "plastiktüten", "kunststoffe"], "weight": 1.0},
-            "metal (Metall)": {
-                "primary": ["metall", "metal", "aluminum", "aluminium", "aludose", "aluminium can", "scrap metal", "tin can", "metal can"],
-                "secondary": ["gelbe tonne", "gelber sack", "wertstofftonne", "metallcontainer", "yellow bin", "metal recycling bin", "can recycling"],
-                "german_compounds": ["aluminiumdosen", "metallverpackungen", "blechdosen"],
-                "weight": 1.2,  # Higher weight for metal since it's often missed
+            "recycling bin (yellow bag)": {
+                "primary": ["recycling bin", "recycle", "wertstofftonne", "gelber sack", "gelbe tonne", "yellow bin"],
+                "secondary": ["can recycling", "bottle bank", "container", "wertstoffe"],
+                "german_compounds": ["wertstofftonnen", "gelbesäcke"],
+                "weight": 1.0,
             },
-            "hazardous (Sondermüll)": {
-                "primary": ["sondermüll", "hazardous", "special collection", "sammelstelle", "light bulb", "glühbirne", "batteries", "battery", "chemicals", "quecksilber", "mercury"],
-                "secondary": ["sondermüll", "sammelstelle", "wertstoffhof", "recyclinghof", "special waste", "hazardous waste collection", "electronics recycling"],
-                "german_compounds": ["altbatterien", "gefahrenstoffe", "elektronikschrott"],
+            "glass container": {
+                "primary": ["altglascontainer", "glass container", "glass bin", "glascontainer"],
+                "secondary": ["blue bin", "green bin", "glass recycling", "altglas"],
+                "german_compounds": ["altglascontainer"],
+                "weight": 1.0,
+            },
+            "paper recycling": {
+                "primary": ["altpapier", "paper recycling", "blaue tonne", "papiertonne", "blue bin", "paper bin"],
+                "secondary": ["cardboard bin", "paper container", "altepapier"],
+                "german_compounds": ["altpapiercontainer", "papiertonnen"],
+                "weight": 1.0,
+            },
+            "landfill": {
+                "primary": ["landfill", "trash", "garbage", "regular trash", "restmüll", "hausmüll", "schwarze tonne", "graue tonne"],
+                "secondary": ["trash bin", "garbage bin", "waste bin", "black bin", "gray bin", "general waste"],
+                "german_compounds": ["restmülltonne", "hausmülltonne"],
+                "weight": 1.0,
+            },
+            "special collection": {
+                "primary": ["special collection", "sammelstelle", "wertstoffhof", "recycling center", "collection point", "drop-off"],
+                "secondary": ["special waste", "hazardous collection", "electronic waste", "e-waste"],
+                "german_compounds": ["sammelstellen", "wertstoffhöfe"],
+                "weight": 1.2,  # Higher weight for special collection since it's often critical
+            },
+            "compost bin": {
+                "primary": ["compost bin", "compost", "organic waste", "biotonne", "grüne tonne", "bio waste", "food waste"],
+                "secondary": ["green bin", "compostable", "organic bin", "biodegradable"],
+                "german_compounds": ["biotonnen", "kompostierbar"],
+                "weight": 1.0,
+            },
+            "donation bin": {
+                "primary": ["donation bin", "textile recycling", "clothing donation", "textilsammlung", "kleidersammlung"],
+                "secondary": ["charity bin", "textile collection", "clothing bin", "fabric recycling"],
+                "german_compounds": ["textilsammlungen", "kleiderspenden"],
                 "weight": 1.0,
             },
         }
@@ -200,11 +227,11 @@ class RecyclingEvaluator:
     async def evaluate_single_case(self, test_case: Dict[str, Any]) -> Dict[str, Any]:
         """Evaluate a single test case."""
         question = test_case["question"]
-        expected_category = test_case["expected_category"].lower()
+        expected_bin = test_case["expected_bin"].lower()
 
         if self.verbose:
             print(f"\n[VERBOSE] Evaluating: {question[:50]}...")
-            print(f"[VERBOSE] Expected category: {expected_category}")
+            print(f"[VERBOSE] Expected bin: {expected_bin}")
             print(f"[VERBOSE] Region: {test_case['region']}, Language: {test_case['language']}")
 
         try:
@@ -229,53 +256,52 @@ class RecyclingEvaluator:
                 print(f"[VERBOSE] Categorized response: '{categorized_response}'")
 
             # Check if categorization is correct
-            # Normalize both to English lowercase for comparison
-            expected_normalized = expected_category.lower()
-            if expected_normalized == "glas":
-                expected_normalized = "glass (glas)"
-            elif expected_normalized == "papier":
-                expected_normalized = "paper (papier)"
-            elif expected_normalized == "metall":
-                expected_normalized = "metal (metall)"
-            elif expected_normalized == "kunststoff":
-                expected_normalized = "plastic (kunststoff)"
-            elif expected_normalized == "sondermüll":
-                expected_normalized = "hazardous (sondermüll)"
+            # Normalize expected bin for comparison
+            expected_normalized = expected_bin.lower()
+            # Standardize German bin names to specific categories
+            if expected_normalized in ["gelber sack", "gelbe tonne", "wertstofftonne"]:
+                expected_normalized = "recycling bin (yellow bag)"
+            elif expected_normalized in ["altglascontainer"]:
+                expected_normalized = "glass container"
+            elif expected_normalized in ["altpapier", "blaue tonne", "papiertonne"]:
+                expected_normalized = "paper recycling"
+            elif expected_normalized in ["restmüll", "hausmüll", "schwarze tonne", "graue tonne"]:
+                expected_normalized = "landfill"
+            elif expected_normalized in ["sammelstelle", "wertstoffhof"]:
+                expected_normalized = "special collection"
+            elif expected_normalized in ["biotonne", "grüne tonne"]:
+                expected_normalized = "compost bin"
+            elif expected_normalized in ["textilsammlung", "kleidersammlung"]:
+                expected_normalized = "donation bin"
+            # Keep US bin names as-is for now (they'll be mapped in display)
+            elif expected_normalized == "recycling bin":
+                expected_normalized = "recycling bin (yellow bag)"  # Map US recycling to yellow bag equivalent
+            # Handle other cases
             else:
-                # Handle English categories
-                if expected_normalized == "glass":
-                    expected_normalized = "glass (glas)"
-                elif expected_normalized == "paper":
-                    expected_normalized = "paper (papier)"
-                elif expected_normalized == "plastic":
-                    expected_normalized = "plastic (kunststoff)"
-                elif expected_normalized == "metal":
-                    expected_normalized = "metal (metall)"
-                elif expected_normalized == "hazardous":
-                    expected_normalized = "hazardous (sondermüll)"
+                expected_normalized = expected_normalized  # Keep as-is for other bins
 
-            category_correct = categorized_response.lower() == expected_normalized
+            bin_correct = categorized_response.lower() == expected_normalized
 
             if self.verbose:
-                print(f"[VERBOSE] Category correct: {category_correct}")
+                print(f"[VERBOSE] Bin correct: {bin_correct}")
 
             return {
                 "question": question,
-                "expected_category": expected_category,
+                "expected_bin": expected_bin,
                 "actual_response": actual_response,
                 "categorized_response": categorized_response,
-                "category_correct": category_correct,
+                "bin_correct": bin_correct,
                 "response_time": response_time,
                 "region": test_case["region"],
                 "language": test_case["language"],
-                "category": test_case["expected_category"],
+                "category": test_case["expected_category"],  # Keep for backward compatibility
                 "error": None,
             }
 
         except Exception as e:
             if self.verbose:
                 print(f"[VERBOSE] Error evaluating case: {e}")
-            return {"question": question, "expected_category": expected_category, "actual_response": "", "categorized_response": "", "category_correct": False, "response_time": 0, "region": test_case["region"], "language": test_case["language"], "category": test_case["expected_category"], "error": str(e)}
+            return {"question": question, "expected_bin": expected_bin, "actual_response": "", "categorized_response": "", "bin_correct": False, "response_time": 0, "region": test_case["region"], "language": test_case["language"], "category": test_case["expected_category"], "error": str(e)}
 
     async def evaluate_test_suite(self, test_cases: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Evaluate all test cases."""
@@ -294,7 +320,7 @@ class RecyclingEvaluator:
 
             # Show result summary in verbose mode
             if self.verbose:
-                status = "✓" if result["category_correct"] else "✗"
+                status = "✓" if result["bin_correct"] else "✗"
                 error_indicator = " (ERROR)" if result["error"] else ""
                 print(f"[VERBOSE] Result {i+1}: {status} {result['categorized_response']}{error_indicator}")
 
@@ -310,7 +336,7 @@ class RecyclingEvaluator:
 
         # Overall statistics
         total_cases = len(results)
-        correct_cases = sum(1 for r in results if r["category_correct"])
+        correct_cases = sum(1 for r in results if r["bin_correct"])
         error_cases = sum(1 for r in results if r["error"] is not None)
 
         stats["overall"] = {"total_cases": total_cases, "correct_cases": correct_cases, "accuracy": correct_cases / total_cases if total_cases > 0 else 0, "error_cases": error_cases, "error_rate": error_cases / total_cases if total_cases > 0 else 0}
@@ -319,22 +345,22 @@ class RecyclingEvaluator:
         for region in ["US", "Germany"]:
             region_results = [r for r in results if r["region"] == region]
             if region_results:
-                correct = sum(1 for r in region_results if r["category_correct"])
+                correct = sum(1 for r in region_results if r["bin_correct"])
                 stats["by_region"][region] = {"total": len(region_results), "correct": correct, "accuracy": correct / len(region_results)}
 
         # By language
         for language in ["en", "de"]:
             lang_results = [r for r in results if r["language"] == language]
             if lang_results:
-                correct = sum(1 for r in lang_results if r["category_correct"])
+                correct = sum(1 for r in lang_results if r["bin_correct"])
                 stats["by_language"][language] = {"total": len(lang_results), "correct": correct, "accuracy": correct / len(lang_results)}
 
-        # By expected category
-        categories = set(r["expected_category"] for r in results)
+        # By expected category (material type)
+        categories = set(r["category"] for r in results)
         for category in categories:
-            cat_results = [r for r in results if r["expected_category"] == category]
+            cat_results = [r for r in results if r["category"] == category]
             if cat_results:
-                correct = sum(1 for r in cat_results if r["category_correct"])
+                correct = sum(1 for r in cat_results if r["bin_correct"])
                 stats["by_category"][category] = {"total": len(cat_results), "correct": correct, "accuracy": correct / len(cat_results)}
 
         # Performance metrics
@@ -349,7 +375,7 @@ class RecyclingEvaluator:
         """Save evaluation results and statistics."""
         output = {"results": results, "statistics": stats, "timestamp": time.time(), "version": "1.0"}
 
-        with open(filename, "w", encoding="utf-8") as f:
+        with open(filename, "w+", encoding="utf-8") as f:
             json.dump(output, f, indent=2, ensure_ascii=False)
 
         print(f"Results saved to {filename}")
@@ -412,37 +438,32 @@ def display_results_summary(results: List[Dict[str, Any]], stats: Dict[str, Any]
             print(f"  ... and {len(error_results) - 5} more errors")
 
     # Show some incorrect answers for analysis
-    incorrect_results = [r for r in results if not r["category_correct"] and r["error"] is None]
+    incorrect_results = [r for r in results if not r["bin_correct"] and r["error"] is None]
     if incorrect_results:
         print(f"\nSample Incorrect Answers ({min(3, len(incorrect_results))} shown):")
         for i, result in enumerate(incorrect_results[:3]):
-            # Normalize expected category for display
-            expected_display = result["expected_category"].lower()
-            if expected_display == "glas":
-                expected_display = "glass (Glas)"
-            elif expected_display == "papier":
-                expected_display = "paper (Papier)"
-            elif expected_display == "metall":
-                expected_display = "metal (Metall)"
-            elif expected_display == "kunststoff":
-                expected_display = "plastic (Kunststoff)"
-            elif expected_display == "sondermüll":
-                expected_display = "hazardous (Sondermüll)"
+            # Normalize expected bin for display
+            expected_display = result["expected_bin"].lower()
+            # Standardize display names to show actual bin names
+            if expected_display in ["gelber sack", "gelbe tonne", "wertstofftonne"]:
+                expected_display = "Gelber Sack"
+            elif expected_display in ["altglascontainer"]:
+                expected_display = "Altglascontainer"
+            elif expected_display in ["altpapier", "blaue tonne", "papiertonne"]:
+                expected_display = "Altpapier"
+            elif expected_display in ["restmüll", "hausmüll", "schwarze tonne", "graue tonne"]:
+                expected_display = "Restmüll"
+            elif expected_display in ["sammelstelle", "wertstoffhof"]:
+                expected_display = "Sammelstelle"
+            elif expected_display in ["biotonne", "grüne tonne"]:
+                expected_display = "Biotonne"
+            elif expected_display in ["textilsammlung", "kleidersammlung"]:
+                expected_display = "Textilsammlung"
             else:
-                # Handle English categories
-                if expected_display == "glass":
-                    expected_display = "glass (Glas)"
-                elif expected_display == "paper":
-                    expected_display = "paper (Papier)"
-                elif expected_display == "plastic":
-                    expected_display = "plastic (Kunststoff)"
-                elif expected_display == "metal":
-                    expected_display = "metal (Metall)"
-                elif expected_display == "hazardous":
-                    expected_display = "hazardous (Sondermüll)"
+                expected_display = expected_display.title()  # Capitalize for display
 
             print(f"  {i+1}. Q: {result['question'][:40]}...")
-            print(f"      Expected: {expected_display} -> Got: {result['categorized_response'].lower()}")
+            print(f"      Expected: {expected_display} -> Got: {result['categorized_response'].title()}")
             print(f"      Full response: {result['actual_response'][:60]}...")
 
 

@@ -172,17 +172,17 @@ class EvaluationTestSuite:
         # Print summary statistics
         regions = {}
         languages = {}
-        categories = {}
+        bins = {}
 
         for case in test_cases:
             regions[case["region"]] = regions.get(case["region"], 0) + 1
             languages[case["language"]] = languages.get(case["language"], 0) + 1
-            categories[case["expected_category"]] = categories.get(case["expected_category"], 0) + 1
+            bins[case["expected_bin"]] = bins.get(case["expected_bin"], 0) + 1
 
         print("\nTest Suite Summary:")
         print(f"Regions: {regions}")
         print(f"Languages: {languages}")
-        print(f"Categories: {categories}")
+        print(f"Bins: {bins}")
 
 
 def main():
