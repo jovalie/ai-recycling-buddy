@@ -159,6 +159,26 @@ Total Scores:
 Result: Correctly categorized as "hazardous" (highest score, prioritizing safety over material value)
 ```
 
+**Example 4: Rechargeable Lithium-Ion Battery Response (German Compounds with Multi-Category Scoring)**
+```
+AI Response: "Lithium-Ionen-Akkus enthalten wertvolle Metalle wie Nickel und Lithium, sind aber Sondermüll. Sie sollten zu Batterie-Sammelstellen gebracht werden."
+
+Keyword Analysis:
+- "Lithium-Ionen-Akkus" (German Compound): +2.5 points for hazardous category
+- "wertvolle Metalle" (Primary Keyword "Metalle"): +3.0 points for metal category
+- "Nickel" (Secondary Keyword): +1.5 points for metal category
+- "Lithium" (Secondary Keyword): +1.5 points for metal category
+- "Sondermüll" (German Compound): +2.5 points for hazardous category
+- "Batterie-Sammelstellen" (German Compound): +2.5 points for hazardous category
+
+Total Scores:
+- Hazardous: 2.5 + 2.5 + 2.5 = 7.5 ✓ (highest score)
+- Metal: 3.0 + 1.5 + 1.5 = 6.0
+- Other categories: Metal (6.0)
+
+Result: Correctly categorized as "hazardous" (German compounds reinforce hazardous classification despite metal content)
+```
+
 #### How `ResponseSimplifer` Works
 The system looks for different types of words in the assistant's answer and gives them different point values:
 
