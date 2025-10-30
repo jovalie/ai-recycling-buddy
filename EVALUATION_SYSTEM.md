@@ -96,8 +96,41 @@ The evaluation framework implements a client-server architecture:
 To correlate complex generationsThe system employs a hierarchical keyword matching approach with differential weighting:
 
 **Primary Keywords (Weight: 3.0)** - Core material identifiers
+
 **Secondary Keywords (Weight: 1.5)** - Bin/container terminology
+
 **German Compounds (Weight: 2.5)** - Complex German word formations
+
+**Example 1: Glass Bottle Response**
+```
+AI Response: "Glass bottles should go in the recycling bin. Make sure to remove the lid first."
+
+Keyword Analysis:
+- "glass" (Primary Keyword): +3.0 points for glass category
+- "bottles" (Secondary Keyword): +1.5 points for glass category  
+- "recycling bin" (Secondary Keyword): +1.5 points for glass category
+
+Total Scores:
+- Glass: 3.0 + 1.5 + 1.5 = 5.5 ✓ (highest score)
+- Other categories: 0.0
+
+Result: Correctly categorized as "glass"
+```
+
+**Example 2: Plastic Bag Response**
+```
+AI Response: "Plastic bags are not recyclable in most areas. They go in the regular trash."
+
+Keyword Analysis:
+- "plastic" (Primary Keyword): +3.0 points for plastic category
+- "bags" (Secondary Keyword): +1.5 points for plastic category
+
+Total Scores:
+- Plastic: 3.0 + 1.5 = 4.5 ✓ (highest score)
+- Other categories: 0.0
+
+Result: Correctly categorized as "plastic"
+```
 
 #### How `ResponseSimplifer` Works
 The system looks for different types of words in the assistant's answer and gives them different point values:
@@ -154,12 +187,6 @@ The system looks for different types of words in the assistant's answer and give
 # Python Environment
 Python >= 3.11.0
 Poetry >= 1.5.0
-
-# Dependencies (key packages)
-fastapi >= 0.104.0
-uvicorn >= 0.24.0
-requests >= 2.31.0
-asyncio >= 3.11.0
 ```
 
 **Installation Commands:**
@@ -192,13 +219,12 @@ python src/evaluation/run_evaluation.py --verbose
 
 #### Categorization Constraints
 - **Keyword Dependency**: Evaluation based on keyword coverage
-- **Regional Variations**: May not capture all local recycling regulations
-- **Temporal Changes**: Recycling rules evolve over time
+- **Regional Variations**: May not capture all local recycling regulations, our knowledge base covers U.S. and Germany
+- **Temporal Changes**: As recycling rules evolve over time, our knowledge base will need to be updated as regulation shifts
 
 #### Evaluation Limitations
 - **Dataset Scale**: 180 test cases may not capture all edge cases
 - **Question Diversity**: Limited to 8 template types per language
-- **Server Dependency**: Evaluation requires stable server infrastructure
 - **Single-turn Evaluation**: Does not assess multi-turn conversations
 
 ### 8.2 Ethical Considerations
@@ -206,7 +232,7 @@ python src/evaluation/run_evaluation.py --verbose
 #### Environmental Impact
 - **Accuracy Requirements**: Incorrect recycling guidance can harm environmental efforts
 - **Bias Assessment**: System performance varies across geographic groups, scope of evaluation is limited to Germany and the United States
-- **Accessibility**: Multilingual support improves inclusivity
+- **Accessibility**: While ultilingual support improves inclusivity, we have only evaluated on English and German
 - **Transparency**: Open evaluation framework enables public scrutiny
 
 #### Fairness Analysis
@@ -223,16 +249,6 @@ python src/evaluation/run_evaluation.py --verbose
 
 ## 7. Implementation Details
 
-### 9.1 System Architecture
-
-#### Core Components
-```
-Evaluation Framework
-├── generate_test_suite.py    # Dataset generation
-├── run_evaluation.py         # Main evaluation engine
-├── generate_report.py        # Results analysis and visualization
-└── ResponseSimplifier        # Categorization algorithm
-```
 
 #### Data Flow
 1. **Dataset Generation**: Create randomized test cases from item templates
