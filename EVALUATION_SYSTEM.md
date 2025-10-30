@@ -246,4 +246,4 @@ python src/evaluation/run_evaluation.py --verbose
 - **User Feedback Integration**: Mechanisms for reporting incorrect guidance
 - **Fallback Procedures**: Clear instructions for uncertain categorizations
 - **Human Leadership**: Our system provides guidance. Humans make the impact.
-This AI assistant offers information to support better recycling decisions, environmental outcomes depend entirely on what people do with that information. While technology exists to provide guidance, ultimately final impact is our responsibility.
+This AI assistant offers information to support better recycling decisions, environmental outcomes depend entirely on what people do with that information. While technology exists to provide guidance, ultimately real-world impact is the responsibility of humankind.
