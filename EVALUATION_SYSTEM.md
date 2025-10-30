@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This document presents an evaluation framework for assessing the accuracy of AI-powered recycling guidance systems. The framework evaluates multilingual categorization performance across diverse recycling scenarios to ensure comprehensive assessment of system capabilities and limitations.
+This document presents an evaluation framework for assessing the accuracy of our AI-powered recycling guidance agent. The framework evaluates multilingual categorization performance across 180 realistic recycling scenarios to ensure comprehensive assessment of system capabilities and limitations.
 
 ## 1. Introduction
 
