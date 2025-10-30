@@ -199,6 +199,106 @@ TEST_RUN=true poetry run python src/Knowledge.py
 TEST_RUN=true TEST_FILE_NAME="your-file.pdf" poetry run python src/Knowledge.py
 ```
 
+## 🧪 Evaluation Suite
+
+The project includes a comprehensive evaluation framework for testing the AI recycling assistant's accuracy and performance across multiple recycling categories and languages.
+
+### Evaluation Components
+
+1. **Linguistic Test Cases**: Questions like "how do I recycle X", "how do I sort Y", "what bin does Z go in" for frequently recycled items
+2. **Response Simplification Agent**: Reduces complex responses to single phrases for accurate evaluation
+3. **Multi-Category Statistics**: Accuracy measurements across US and German recycling categories
+4. **Cross-Language Evaluation**: Tests for both English and German language support
+
+### Running Evaluations
+
+```bash
+# Navigate to the evaluation directory
+cd src/evaluation
+
+# 1. Generate evaluation test cases
+python generate_test_suite.py
+
+# 2. Run evaluation suite (uses FastAPI server)
+python run_evaluation.py
+
+# 3. Generate evaluation report with visualizations
+python generate_report.py
+```
+
+### How Evaluation Works
+
+The evaluation system uses the **FastAPI server** (same as the Streamlit UI) to ensure consistent testing:
+
+1. **Server Management**: Automatically checks if the server is running on `localhost:8000`
+2. **Auto-Start**: If server isn't running, starts it automatically using `serve.py`
+3. **HTTP Queries**: Makes HTTP requests to `/query` endpoint with region-specific parameters
+4. **German Bin Support**: Properly recognizes German recycling bin names:
+   - `Gelber Sack` (Yellow Bag) - plastics and metals
+   - `Altglascontainer` (Glass Container) - glass bottles/jars
+   - `Altpapier` (Paper Recycling) - paper and cardboard
+   - `Restmüll` (General Waste/Landfill) - non-recyclable waste
+   - `Sammelstelle` (Collection Point) - hazardous/special waste
+
+#### German Bin Recognition
+The evaluation properly recognizes German recycling bin names:
+- `Gelber Sack` (Yellow Bag) - plastics and metals
+- `Altglascontainer` (Glass Container) - glass bottles/jars
+- `Altpapier` (Paper Recycling) - paper and cardboard
+- `Restmüll` (General Waste/Landfill) - non-recyclable waste
+- `Sammelstelle` (Collection Point) - hazardous/special waste
+
+### Test Case Examples
+
+**English (US)**:
+- "How do I recycle a plastic bottle?" → "recycling bin - remove cap and label"
+- "Where does aluminum foil go?" → "recycling bin"
+- "Can I recycle pizza boxes?" → "landfill - contaminated"
+
+**German (Germany)**:
+- "Wie recycelt man eine Plastikflasche?" → "Gelber Sack - Deckel abnehmen"
+- "Wohin kommt Alufolie?" → "Gelber Sack"
+- "Kann man Pizzakartons recyceln?" → "Restmüll - verschmutzt"
+
+### Evaluation Output
+
+The evaluation suite generates:
+- `evaluation_test_cases.json`: Generated test cases
+- `evaluation_results.json`: Raw evaluation results
+- `evaluation_report.txt`: Text summary report
+- `evaluation_details.csv`: Detailed CSV report
+- `evaluation_charts/`: Visualizations and charts
+
+### Understanding Results
+
+The evaluation measures:
+- **Overall Accuracy**: Percentage of correct recycling advice
+- **Regional Performance**: Accuracy for US vs Germany
+- **Language Performance**: Accuracy for English vs German
+- **Category Performance**: Accuracy by material type (plastic, glass, paper, etc.)
+- **Response Time**: Average time to generate answers
+- **Error Analysis**: System errors and failure modes
+
+### Test Case Examples
+
+**English (US)**:
+- "How do I recycle a plastic bottle?"
+- "Where does aluminum foil go?"
+- "Can I recycle pizza boxes?"
+
+**German (Germany)**:
+- "Wie recycelt man eine Plastikflasche?"
+- "Wohin kommt Alufolie?"
+- "Kann man Pizzakartons recyceln?"
+
+### Expected Performance
+
+Target accuracy metrics:
+- Overall: >80%
+- Regional: >75% each
+- Language: >75% each
+- Response time: <3 seconds average
+
 
 ## 🙏 Acknowledgments
 

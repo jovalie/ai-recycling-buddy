@@ -1,0 +1,1322 @@
+[
+  {
+    "question": "In welche Tonne kommt Styropor?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Styropor",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "Is light bulb recyclable?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "contains mercury",
+    "region": "US",
+    "language": "en",
+    "item": "light bulb",
+    "ground_truth": "special collection - contains mercury"
+  },
+  {
+    "question": "Is cardboard box recyclable?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "flatten",
+    "region": "US",
+    "language": "en",
+    "item": "cardboard box",
+    "ground_truth": "recycling bin - flatten"
+  },
+  {
+    "question": "Wie recycelt man Batterie?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Sondermüll",
+    "region": "Germany",
+    "language": "de",
+    "item": "Batterie",
+    "ground_truth": "Sammelstelle - Sondermüll"
+  },
+  {
+    "question": "Wie entsorgt man Batterie?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Sondermüll",
+    "region": "Germany",
+    "language": "de",
+    "item": "Batterie",
+    "ground_truth": "Sammelstelle - Sondermüll"
+  },
+  {
+    "question": "Can I recycle red glass bottle?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "red glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "How to recycle plastic bag properly?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable in most areas",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bag",
+    "ground_truth": "landfill - not recyclable in most areas"
+  },
+  {
+    "question": "Where does styrofoam go for recycling?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable",
+    "region": "US",
+    "language": "en",
+    "item": "styrofoam",
+    "ground_truth": "landfill - not recyclable"
+  },
+  {
+    "question": "Wie entsorgt man Plastikflasche?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastikflasche",
+    "ground_truth": "Gelber Sack - Deckel abnehmen"
+  },
+  {
+    "question": "Where do I put aluminum can?",
+    "expected_category": "metal",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "aluminum can",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "Wohin kommt Pizzakarton mit Fett zum Recyceln?",
+    "expected_category": "Papier",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "verschmutzt",
+    "region": "Germany",
+    "language": "de",
+    "item": "Pizzakarton mit Fett",
+    "ground_truth": "Restmüll - verschmutzt"
+  },
+  {
+    "question": "Wohin kommt Plastiktüte zum Recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastiktüte",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "Wie recycelt man CD richtig?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Elektroschrott",
+    "region": "Germany",
+    "language": "de",
+    "item": "CD",
+    "ground_truth": "Sammelstelle - Elektroschrott"
+  },
+  {
+    "question": "How do I recycle clothing?",
+    "expected_category": "plastic",
+    "expected_bin": "donation bin",
+    "expected_instructions": "textile recycling",
+    "region": "US",
+    "language": "en",
+    "item": "clothing",
+    "ground_truth": "donation bin - textile recycling"
+  },
+  {
+    "question": "Wohin kommt Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Pfand beachten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glasflasche",
+    "ground_truth": "Altglascontainer - Pfand beachten"
+  },
+  {
+    "question": "What bin does plastic bottle go in?",
+    "expected_category": "plastic",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove cap and label",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bottle",
+    "ground_truth": "recycling bin - remove cap and label"
+  },
+  {
+    "question": "Where does milk carton go for recycling?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "milk carton",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "In welche Tonne kommt Zeitung?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "trocken halten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Zeitung",
+    "ground_truth": "Altpapier - trocken halten"
+  },
+  {
+    "question": "How do I recycle shredded paper?",
+    "expected_category": "paper",
+    "expected_bin": "compost bin",
+    "expected_instructions": "organic waste",
+    "region": "US",
+    "language": "en",
+    "item": "shredded paper",
+    "ground_truth": "compost bin - organic waste"
+  },
+  {
+    "question": "Where do I put milk carton?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "milk carton",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "Where do I put takeout container?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "check local guidelines",
+    "region": "US",
+    "language": "en",
+    "item": "takeout container",
+    "ground_truth": "landfill - check local guidelines"
+  },
+  {
+    "question": "Wohin kommt Gelbe Glasflasche zum Recyceln?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Gelbe Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Wie recycelt man Grüne Glasflasche richtig?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Grüne Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Is shredded paper recyclable?",
+    "expected_category": "paper",
+    "expected_bin": "compost bin",
+    "expected_instructions": "organic waste",
+    "region": "US",
+    "language": "en",
+    "item": "shredded paper",
+    "ground_truth": "compost bin - organic waste"
+  },
+  {
+    "question": "Wie entsorgt man Rote Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Rote Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Wie recycelt man Takeawaybehälter richtig?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "lokale Richtlinien prüfen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Takeawaybehälter",
+    "ground_truth": "Restmüll - lokale Richtlinien prüfen"
+  },
+  {
+    "question": "Kann man Tetra Pak recyceln?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Tetra Pak",
+    "ground_truth": "Altpapier - ausspülen"
+  },
+  {
+    "question": "What bin does yellow glass bottle go in?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "yellow glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "In welche Tonne kommt Takeawaybehälter?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "lokale Richtlinien prüfen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Takeawaybehälter",
+    "ground_truth": "Restmüll - lokale Richtlinien prüfen"
+  },
+  {
+    "question": "How do I recycle cardboard box?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "flatten",
+    "region": "US",
+    "language": "en",
+    "item": "cardboard box",
+    "ground_truth": "recycling bin - flatten"
+  },
+  {
+    "question": "How do I recycle takeout container?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "check local guidelines",
+    "region": "US",
+    "language": "en",
+    "item": "takeout container",
+    "ground_truth": "landfill - check local guidelines"
+  },
+  {
+    "question": "Wie recycelt man DVD richtig?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Elektroschrott",
+    "region": "Germany",
+    "language": "de",
+    "item": "DVD",
+    "ground_truth": "Sammelstelle - Elektroschrott"
+  },
+  {
+    "question": "Is clothing recyclable?",
+    "expected_category": "plastic",
+    "expected_bin": "donation bin",
+    "expected_instructions": "textile recycling",
+    "region": "US",
+    "language": "en",
+    "item": "clothing",
+    "ground_truth": "donation bin - textile recycling"
+  },
+  {
+    "question": "How should I dispose of red glass bottle?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "red glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Kann man CD recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Elektroschrott",
+    "region": "Germany",
+    "language": "de",
+    "item": "CD",
+    "ground_truth": "Sammelstelle - Elektroschrott"
+  },
+  {
+    "question": "Wohin kommt Eierschale zum Recyceln?",
+    "expected_category": "Papier",
+    "expected_bin": "Biotonne",
+    "expected_instructions": "Bioabfall",
+    "region": "Germany",
+    "language": "de",
+    "item": "Eierschale",
+    "ground_truth": "Biotonne - Bioabfall"
+  },
+  {
+    "question": "Wohin kommt Styropor zum Recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Styropor",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "Where do I put red glass bottle?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "red glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "How should I dispose of plastic bag?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable in most areas",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bag",
+    "ground_truth": "landfill - not recyclable in most areas"
+  },
+  {
+    "question": "In welche Tonne kommt Glühbirne?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Quecksilber enthält",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glühbirne",
+    "ground_truth": "Sammelstelle - Quecksilber enthält"
+  },
+  {
+    "question": "Where do I put blue glass bottle?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "blue glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Where does green glass bottle go for recycling?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "green glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Kann man Takeawaybehälter recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "lokale Richtlinien prüfen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Takeawaybehälter",
+    "ground_truth": "Restmüll - lokale Richtlinien prüfen"
+  },
+  {
+    "question": "Kann man Aludose recyceln?",
+    "expected_category": "Metall",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Aludose",
+    "ground_truth": "Gelber Sack - ausspülen"
+  },
+  {
+    "question": "Ist Zeitung recycelbar?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "trocken halten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Zeitung",
+    "ground_truth": "Altpapier - trocken halten"
+  },
+  {
+    "question": "Where does eggshell go for recycling?",
+    "expected_category": "paper",
+    "expected_bin": "compost bin",
+    "expected_instructions": "organic waste",
+    "region": "US",
+    "language": "en",
+    "item": "eggshell",
+    "ground_truth": "compost bin - organic waste"
+  },
+  {
+    "question": "Wohin kommt Karton zum Recyceln?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "zusammenfalten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Karton",
+    "ground_truth": "Altpapier - zusammenfalten"
+  },
+  {
+    "question": "How do I recycle eggshell?",
+    "expected_category": "paper",
+    "expected_bin": "compost bin",
+    "expected_instructions": "organic waste",
+    "region": "US",
+    "language": "en",
+    "item": "eggshell",
+    "ground_truth": "compost bin - organic waste"
+  },
+  {
+    "question": "Can I recycle takeout container?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "check local guidelines",
+    "region": "US",
+    "language": "en",
+    "item": "takeout container",
+    "ground_truth": "landfill - check local guidelines"
+  },
+  {
+    "question": "How to recycle clothing properly?",
+    "expected_category": "plastic",
+    "expected_bin": "donation bin",
+    "expected_instructions": "textile recycling",
+    "region": "US",
+    "language": "en",
+    "item": "clothing",
+    "ground_truth": "donation bin - textile recycling"
+  },
+  {
+    "question": "Wie recycelt man Pizzakarton mit Fett richtig?",
+    "expected_category": "Papier",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "verschmutzt",
+    "region": "Germany",
+    "language": "de",
+    "item": "Pizzakarton mit Fett",
+    "ground_truth": "Restmüll - verschmutzt"
+  },
+  {
+    "question": "In welche Tonne kommt Tetra Pak?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Tetra Pak",
+    "ground_truth": "Altpapier - ausspülen"
+  },
+  {
+    "question": "How to recycle pizza box with grease properly?",
+    "expected_category": "paper",
+    "expected_bin": "landfill",
+    "expected_instructions": "contaminated",
+    "region": "US",
+    "language": "en",
+    "item": "pizza box with grease",
+    "ground_truth": "landfill - contaminated"
+  },
+  {
+    "question": "How should I dispose of DVD?",
+    "expected_category": "plastic",
+    "expected_bin": "special collection",
+    "expected_instructions": "electronics recycling",
+    "region": "US",
+    "language": "en",
+    "item": "DVD",
+    "ground_truth": "special collection - electronics recycling"
+  },
+  {
+    "question": "In welche Tonne kommt Kleidung?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Textilsammlung",
+    "expected_instructions": "Textilrecycling",
+    "region": "Germany",
+    "language": "de",
+    "item": "Kleidung",
+    "ground_truth": "Textilsammlung - Textilrecycling"
+  },
+  {
+    "question": "Can I recycle eggshell?",
+    "expected_category": "paper",
+    "expected_bin": "compost bin",
+    "expected_instructions": "organic waste",
+    "region": "US",
+    "language": "en",
+    "item": "eggshell",
+    "ground_truth": "compost bin - organic waste"
+  },
+  {
+    "question": "Wie entsorgt man Tetra Pak?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Tetra Pak",
+    "ground_truth": "Altpapier - ausspülen"
+  },
+  {
+    "question": "What bin does battery go in?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "hazardous waste",
+    "region": "US",
+    "language": "en",
+    "item": "battery",
+    "ground_truth": "special collection - hazardous waste"
+  },
+  {
+    "question": "How do I recycle plastic bottle?",
+    "expected_category": "plastic",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove cap and label",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bottle",
+    "ground_truth": "recycling bin - remove cap and label"
+  },
+  {
+    "question": "Wie recycelt man Glasflasche richtig?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Pfand beachten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glasflasche",
+    "ground_truth": "Altglascontainer - Pfand beachten"
+  },
+  {
+    "question": "How to recycle newspaper properly?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "keep dry",
+    "region": "US",
+    "language": "en",
+    "item": "newspaper",
+    "ground_truth": "recycling bin - keep dry"
+  },
+  {
+    "question": "Where does yellow glass bottle go for recycling?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "yellow glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Wie entsorgt man Gelbe Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Gelbe Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Kann man Gelbe Glasflasche recyceln?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Gelbe Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Wie recycelt man Plastikflasche richtig?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastikflasche",
+    "ground_truth": "Gelber Sack - Deckel abnehmen"
+  },
+  {
+    "question": "Wie recycelt man Blaue Glasflasche richtig?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Blaue Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Wie recycelt man Glühbirne richtig?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Quecksilber enthält",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glühbirne",
+    "ground_truth": "Sammelstelle - Quecksilber enthält"
+  },
+  {
+    "question": "Wie recycelt man Eierschale?",
+    "expected_category": "Papier",
+    "expected_bin": "Biotonne",
+    "expected_instructions": "Bioabfall",
+    "region": "Germany",
+    "language": "de",
+    "item": "Eierschale",
+    "ground_truth": "Biotonne - Bioabfall"
+  },
+  {
+    "question": "How to recycle blue glass bottle properly?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "blue glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Where does CD go for recycling?",
+    "expected_category": "plastic",
+    "expected_bin": "special collection",
+    "expected_instructions": "electronics recycling",
+    "region": "US",
+    "language": "en",
+    "item": "CD",
+    "ground_truth": "special collection - electronics recycling"
+  },
+  {
+    "question": "Wie recycelt man Papierschnipsel richtig?",
+    "expected_category": "Papier",
+    "expected_bin": "Biotonne",
+    "expected_instructions": "Bioabfall",
+    "region": "Germany",
+    "language": "de",
+    "item": "Papierschnipsel",
+    "ground_truth": "Biotonne - Bioabfall"
+  },
+  {
+    "question": "Where do I put shredded paper?",
+    "expected_category": "paper",
+    "expected_bin": "compost bin",
+    "expected_instructions": "organic waste",
+    "region": "US",
+    "language": "en",
+    "item": "shredded paper",
+    "ground_truth": "compost bin - organic waste"
+  },
+  {
+    "question": "Where do I put glass jar?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "glass jar",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "How to recycle DVD properly?",
+    "expected_category": "plastic",
+    "expected_bin": "special collection",
+    "expected_instructions": "electronics recycling",
+    "region": "US",
+    "language": "en",
+    "item": "DVD",
+    "ground_truth": "special collection - electronics recycling"
+  },
+  {
+    "question": "Wie recycelt man Klare Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Klare Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "How should I dispose of blue glass bottle?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "blue glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Kann man Papierschnipsel recyceln?",
+    "expected_category": "Papier",
+    "expected_bin": "Biotonne",
+    "expected_instructions": "Bioabfall",
+    "region": "Germany",
+    "language": "de",
+    "item": "Papierschnipsel",
+    "ground_truth": "Biotonne - Bioabfall"
+  },
+  {
+    "question": "How do I recycle clear glass bottle?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "clear glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "What bin does clear glass bottle go in?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "clear glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Where do I put plastic bag?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable in most areas",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bag",
+    "ground_truth": "landfill - not recyclable in most areas"
+  },
+  {
+    "question": "Kann man Klare Glasflasche recyceln?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Klare Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Wie recycelt man Batterie richtig?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Sondermüll",
+    "region": "Germany",
+    "language": "de",
+    "item": "Batterie",
+    "ground_truth": "Sammelstelle - Sondermüll"
+  },
+  {
+    "question": "How do I recycle glass jar?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "glass jar",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Wie recycelt man Karton richtig?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "zusammenfalten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Karton",
+    "ground_truth": "Altpapier - zusammenfalten"
+  },
+  {
+    "question": "How do I recycle milk carton?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "milk carton",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "How do I recycle light bulb?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "contains mercury",
+    "region": "US",
+    "language": "en",
+    "item": "light bulb",
+    "ground_truth": "special collection - contains mercury"
+  },
+  {
+    "question": "Wohin kommt Grüne Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Grüne Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Wohin kommt Kleidung?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Textilsammlung",
+    "expected_instructions": "Textilrecycling",
+    "region": "Germany",
+    "language": "de",
+    "item": "Kleidung",
+    "ground_truth": "Textilsammlung - Textilrecycling"
+  },
+  {
+    "question": "Wie recycelt man Grüne Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Grüne Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "How to recycle glass jar properly?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "glass jar",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "How should I dispose of aluminum can?",
+    "expected_category": "metal",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "aluminum can",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "Kann man Karton recyceln?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "zusammenfalten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Karton",
+    "ground_truth": "Altpapier - zusammenfalten"
+  },
+  {
+    "question": "How do I recycle DVD?",
+    "expected_category": "plastic",
+    "expected_bin": "special collection",
+    "expected_instructions": "electronics recycling",
+    "region": "US",
+    "language": "en",
+    "item": "DVD",
+    "ground_truth": "special collection - electronics recycling"
+  },
+  {
+    "question": "Kann man Glühbirne recyceln?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Quecksilber enthält",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glühbirne",
+    "ground_truth": "Sammelstelle - Quecksilber enthält"
+  },
+  {
+    "question": "Kann man Plastiktüte recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastiktüte",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "Can I recycle newspaper?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "keep dry",
+    "region": "US",
+    "language": "en",
+    "item": "newspaper",
+    "ground_truth": "recycling bin - keep dry"
+  },
+  {
+    "question": "Ist DVD recycelbar?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Elektroschrott",
+    "region": "Germany",
+    "language": "de",
+    "item": "DVD",
+    "ground_truth": "Sammelstelle - Elektroschrott"
+  },
+  {
+    "question": "Wohin kommt Blaue Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Blaue Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Can I recycle aluminum can?",
+    "expected_category": "metal",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "aluminum can",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "Is newspaper recyclable?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "keep dry",
+    "region": "US",
+    "language": "en",
+    "item": "newspaper",
+    "ground_truth": "recycling bin - keep dry"
+  },
+  {
+    "question": "Ist Glasflasche recycelbar?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Pfand beachten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glasflasche",
+    "ground_truth": "Altglascontainer - Pfand beachten"
+  },
+  {
+    "question": "Kann man DVD recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Elektroschrott",
+    "region": "Germany",
+    "language": "de",
+    "item": "DVD",
+    "ground_truth": "Sammelstelle - Elektroschrott"
+  },
+  {
+    "question": "Ist Klare Glasflasche recycelbar?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Klare Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Ist Aludose recycelbar?",
+    "expected_category": "Metall",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Aludose",
+    "ground_truth": "Gelber Sack - ausspülen"
+  },
+  {
+    "question": "Wohin kommt Zeitung?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "trocken halten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Zeitung",
+    "ground_truth": "Altpapier - trocken halten"
+  },
+  {
+    "question": "Wie entsorgt man Papierschnipsel?",
+    "expected_category": "Papier",
+    "expected_bin": "Biotonne",
+    "expected_instructions": "Bioabfall",
+    "region": "Germany",
+    "language": "de",
+    "item": "Papierschnipsel",
+    "ground_truth": "Biotonne - Bioabfall"
+  },
+  {
+    "question": "Is green glass bottle recyclable?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "green glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Wie recycelt man Plastiktüte?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastiktüte",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "Wohin kommt Styropor?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Styropor",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "Where do I put light bulb?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "contains mercury",
+    "region": "US",
+    "language": "en",
+    "item": "light bulb",
+    "ground_truth": "special collection - contains mercury"
+  },
+  {
+    "question": "How should I dispose of CD?",
+    "expected_category": "plastic",
+    "expected_bin": "special collection",
+    "expected_instructions": "electronics recycling",
+    "region": "US",
+    "language": "en",
+    "item": "CD",
+    "ground_truth": "special collection - electronics recycling"
+  },
+  {
+    "question": "How do I recycle green glass bottle?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "green glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "How to recycle yellow glass bottle properly?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "yellow glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Wie recycelt man Blaue Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Blaue Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "How should I dispose of battery?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "hazardous waste",
+    "region": "US",
+    "language": "en",
+    "item": "battery",
+    "ground_truth": "special collection - hazardous waste"
+  },
+  {
+    "question": "How to recycle clear glass bottle properly?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "clear glass bottle",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Wohin kommt CD zum Recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Elektroschrott",
+    "region": "Germany",
+    "language": "de",
+    "item": "CD",
+    "ground_truth": "Sammelstelle - Elektroschrott"
+  },
+  {
+    "question": "Where does plastic bottle go for recycling?",
+    "expected_category": "plastic",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove cap and label",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bottle",
+    "ground_truth": "recycling bin - remove cap and label"
+  },
+  {
+    "question": "In welche Tonne kommt Plastikflasche?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastikflasche",
+    "ground_truth": "Gelber Sack - Deckel abnehmen"
+  },
+  {
+    "question": "Wohin kommt Rote Glasflasche zum Recyceln?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Rote Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "What bin does cardboard box go in?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "flatten",
+    "region": "US",
+    "language": "en",
+    "item": "cardboard box",
+    "ground_truth": "recycling bin - flatten"
+  },
+  {
+    "question": "Where do I put pizza box with grease?",
+    "expected_category": "paper",
+    "expected_bin": "landfill",
+    "expected_instructions": "contaminated",
+    "region": "US",
+    "language": "en",
+    "item": "pizza box with grease",
+    "ground_truth": "landfill - contaminated"
+  },
+  {
+    "question": "Can I recycle CD?",
+    "expected_category": "plastic",
+    "expected_bin": "special collection",
+    "expected_instructions": "electronics recycling",
+    "region": "US",
+    "language": "en",
+    "item": "CD",
+    "ground_truth": "special collection - electronics recycling"
+  },
+  {
+    "question": "Is styrofoam recyclable?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable",
+    "region": "US",
+    "language": "en",
+    "item": "styrofoam",
+    "ground_truth": "landfill - not recyclable"
+  },
+  {
+    "question": "In welche Tonne kommt Aludose?",
+    "expected_category": "Metall",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Aludose",
+    "ground_truth": "Gelber Sack - ausspülen"
+  },
+  {
+    "question": "Wie entsorgt man Kleidung?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Textilsammlung",
+    "expected_instructions": "Textilrecycling",
+    "region": "Germany",
+    "language": "de",
+    "item": "Kleidung",
+    "ground_truth": "Textilsammlung - Textilrecycling"
+  },
+  {
+    "question": "Wie entsorgt man Eierschale?",
+    "expected_category": "Papier",
+    "expected_bin": "Biotonne",
+    "expected_instructions": "Bioabfall",
+    "region": "Germany",
+    "language": "de",
+    "item": "Eierschale",
+    "ground_truth": "Biotonne - Bioabfall"
+  },
+  {
+    "question": "Wie recycelt man Pizzakarton mit Fett?",
+    "expected_category": "Papier",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "verschmutzt",
+    "region": "Germany",
+    "language": "de",
+    "item": "Pizzakarton mit Fett",
+    "ground_truth": "Restmüll - verschmutzt"
+  },
+  {
+    "question": "Wie recycelt man Rote Glasflasche?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Rote Glasflasche",
+    "ground_truth": "Altglascontainer - Deckel abnehmen"
+  },
+  {
+    "question": "Where does battery go for recycling?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "hazardous waste",
+    "region": "US",
+    "language": "en",
+    "item": "battery",
+    "ground_truth": "special collection - hazardous waste"
+  },
+  {
+    "question": "What bin does pizza box with grease go in?",
+    "expected_category": "paper",
+    "expected_bin": "landfill",
+    "expected_instructions": "contaminated",
+    "region": "US",
+    "language": "en",
+    "item": "pizza box with grease",
+    "ground_truth": "landfill - contaminated"
+  },
+  {
+    "question": "How do I recycle styrofoam?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable",
+    "region": "US",
+    "language": "en",
+    "item": "styrofoam",
+    "ground_truth": "landfill - not recyclable"
+  }
+]

@@ -1,0 +1,602 @@
+[
+  {
+    "question": "Wie recycelt man Styropor?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Styropor",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "Can I recycle milk carton?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "milk carton",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "Ist Glasflasche recycelbar?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Pfand beachten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glasflasche",
+    "ground_truth": "Altglascontainer - Pfand beachten"
+  },
+  {
+    "question": "Where does glass jar go for recycling?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "glass jar",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "How should I dispose of newspaper?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "keep dry",
+    "region": "US",
+    "language": "en",
+    "item": "newspaper",
+    "ground_truth": "recycling bin - keep dry"
+  },
+  {
+    "question": "Where do I put pizza box with grease?",
+    "expected_category": "paper",
+    "expected_bin": "landfill",
+    "expected_instructions": "contaminated",
+    "region": "US",
+    "language": "en",
+    "item": "pizza box with grease",
+    "ground_truth": "landfill - contaminated"
+  },
+  {
+    "question": "Wie recycelt man Glühbirne?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Quecksilber enthält",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glühbirne",
+    "ground_truth": "Sammelstelle - Quecksilber enthält"
+  },
+  {
+    "question": "How do I recycle plastic bag?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable in most areas",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bag",
+    "ground_truth": "landfill - not recyclable in most areas"
+  },
+  {
+    "question": "Wie entsorgt man Zeitung?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "trocken halten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Zeitung",
+    "ground_truth": "Altpapier - trocken halten"
+  },
+  {
+    "question": "Kann man Plastikflasche recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastikflasche",
+    "ground_truth": "Gelber Sack - Deckel abnehmen"
+  },
+  {
+    "question": "Is cardboard box recyclable?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "flatten",
+    "region": "US",
+    "language": "en",
+    "item": "cardboard box",
+    "ground_truth": "recycling bin - flatten"
+  },
+  {
+    "question": "Wie entsorgt man Karton?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "zusammenfalten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Karton",
+    "ground_truth": "Altpapier - zusammenfalten"
+  },
+  {
+    "question": "Kann man Glasflasche recyceln?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Pfand beachten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glasflasche",
+    "ground_truth": "Altglascontainer - Pfand beachten"
+  },
+  {
+    "question": "Where do I put plastic bottle?",
+    "expected_category": "plastic",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove cap and label",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bottle",
+    "ground_truth": "recycling bin - remove cap and label"
+  },
+  {
+    "question": "How should I dispose of plastic bottle?",
+    "expected_category": "plastic",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove cap and label",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bottle",
+    "ground_truth": "recycling bin - remove cap and label"
+  },
+  {
+    "question": "Wie recycelt man Pizzakarton mit Fett?",
+    "expected_category": "Papier",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "verschmutzt",
+    "region": "Germany",
+    "language": "de",
+    "item": "Pizzakarton mit Fett",
+    "ground_truth": "Restmüll - verschmutzt"
+  },
+  {
+    "question": "Where do I put light bulb?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "contains mercury",
+    "region": "US",
+    "language": "en",
+    "item": "light bulb",
+    "ground_truth": "special collection - contains mercury"
+  },
+  {
+    "question": "How do I recycle glass jar?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "glass jar",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Where does plastic bag go for recycling?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable in most areas",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bag",
+    "ground_truth": "landfill - not recyclable in most areas"
+  },
+  {
+    "question": "Wie recycelt man Plastikflasche richtig?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastikflasche",
+    "ground_truth": "Gelber Sack - Deckel abnehmen"
+  },
+  {
+    "question": "How do I recycle plastic bottle?",
+    "expected_category": "plastic",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove cap and label",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bottle",
+    "ground_truth": "recycling bin - remove cap and label"
+  },
+  {
+    "question": "How to recycle cardboard box properly?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "flatten",
+    "region": "US",
+    "language": "en",
+    "item": "cardboard box",
+    "ground_truth": "recycling bin - flatten"
+  },
+  {
+    "question": "Wohin kommt Karton zum Recyceln?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "zusammenfalten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Karton",
+    "ground_truth": "Altpapier - zusammenfalten"
+  },
+  {
+    "question": "How should I dispose of styrofoam?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable",
+    "region": "US",
+    "language": "en",
+    "item": "styrofoam",
+    "ground_truth": "landfill - not recyclable"
+  },
+  {
+    "question": "Wie entsorgt man Styropor?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Styropor",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "Wohin kommt Plastiktüte zum Recyceln?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastiktüte",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "How should I dispose of glass jar?",
+    "expected_category": "glass",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "remove lid",
+    "region": "US",
+    "language": "en",
+    "item": "glass jar",
+    "ground_truth": "recycling bin - remove lid"
+  },
+  {
+    "question": "Is light bulb recyclable?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "contains mercury",
+    "region": "US",
+    "language": "en",
+    "item": "light bulb",
+    "ground_truth": "special collection - contains mercury"
+  },
+  {
+    "question": "Can I recycle aluminum can?",
+    "expected_category": "metal",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "aluminum can",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "Wie entsorgt man Pizzakarton mit Fett?",
+    "expected_category": "Papier",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "verschmutzt",
+    "region": "Germany",
+    "language": "de",
+    "item": "Pizzakarton mit Fett",
+    "ground_truth": "Restmüll - verschmutzt"
+  },
+  {
+    "question": "What bin does milk carton go in?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "milk carton",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "Wohin kommt Glühbirne?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Quecksilber enthält",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glühbirne",
+    "ground_truth": "Sammelstelle - Quecksilber enthält"
+  },
+  {
+    "question": "Wie recycelt man Aludose?",
+    "expected_category": "Metall",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Aludose",
+    "ground_truth": "Gelber Sack - ausspülen"
+  },
+  {
+    "question": "Wie recycelt man Glasflasche richtig?",
+    "expected_category": "Glas",
+    "expected_bin": "Altglascontainer",
+    "expected_instructions": "Pfand beachten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glasflasche",
+    "ground_truth": "Altglascontainer - Pfand beachten"
+  },
+  {
+    "question": "In welche Tonne kommt Tetra Pak?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Tetra Pak",
+    "ground_truth": "Altpapier - ausspülen"
+  },
+  {
+    "question": "In welche Tonne kommt Glühbirne?",
+    "expected_category": "Sondermüll",
+    "expected_bin": "Sammelstelle",
+    "expected_instructions": "Quecksilber enthält",
+    "region": "Germany",
+    "language": "de",
+    "item": "Glühbirne",
+    "ground_truth": "Sammelstelle - Quecksilber enthält"
+  },
+  {
+    "question": "Can I recycle newspaper?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "keep dry",
+    "region": "US",
+    "language": "en",
+    "item": "newspaper",
+    "ground_truth": "recycling bin - keep dry"
+  },
+  {
+    "question": "Where does aluminum can go for recycling?",
+    "expected_category": "metal",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "aluminum can",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "What bin does styrofoam go in?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable",
+    "region": "US",
+    "language": "en",
+    "item": "styrofoam",
+    "ground_truth": "landfill - not recyclable"
+  },
+  {
+    "question": "Where do I put aluminum can?",
+    "expected_category": "metal",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "aluminum can",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "Can I recycle pizza box with grease?",
+    "expected_category": "paper",
+    "expected_bin": "landfill",
+    "expected_instructions": "contaminated",
+    "region": "US",
+    "language": "en",
+    "item": "pizza box with grease",
+    "ground_truth": "landfill - contaminated"
+  },
+  {
+    "question": "In welche Tonne kommt Plastikflasche?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "Deckel abnehmen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastikflasche",
+    "ground_truth": "Gelber Sack - Deckel abnehmen"
+  },
+  {
+    "question": "How should I dispose of light bulb?",
+    "expected_category": "hazardous",
+    "expected_bin": "special collection",
+    "expected_instructions": "contains mercury",
+    "region": "US",
+    "language": "en",
+    "item": "light bulb",
+    "ground_truth": "special collection - contains mercury"
+  },
+  {
+    "question": "Wie recycelt man Aludose richtig?",
+    "expected_category": "Metall",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Aludose",
+    "ground_truth": "Gelber Sack - ausspülen"
+  },
+  {
+    "question": "In welche Tonne kommt Plastiktüte?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastiktüte",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "In welche Tonne kommt Pizzakarton mit Fett?",
+    "expected_category": "Papier",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "verschmutzt",
+    "region": "Germany",
+    "language": "de",
+    "item": "Pizzakarton mit Fett",
+    "ground_truth": "Restmüll - verschmutzt"
+  },
+  {
+    "question": "Wie recycelt man Tetra Pak?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Tetra Pak",
+    "ground_truth": "Altpapier - ausspülen"
+  },
+  {
+    "question": "In welche Tonne kommt Aludose?",
+    "expected_category": "Metall",
+    "expected_bin": "Gelber Sack",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Aludose",
+    "ground_truth": "Gelber Sack - ausspülen"
+  },
+  {
+    "question": "Wie recycelt man Tetra Pak richtig?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "ausspülen",
+    "region": "Germany",
+    "language": "de",
+    "item": "Tetra Pak",
+    "ground_truth": "Altpapier - ausspülen"
+  },
+  {
+    "question": "Ist Zeitung recycelbar?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "trocken halten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Zeitung",
+    "ground_truth": "Altpapier - trocken halten"
+  },
+  {
+    "question": "Wie entsorgt man Plastiktüte?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Plastiktüte",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "What bin does cardboard box go in?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "flatten",
+    "region": "US",
+    "language": "en",
+    "item": "cardboard box",
+    "ground_truth": "recycling bin - flatten"
+  },
+  {
+    "question": "What bin does plastic bag go in?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable in most areas",
+    "region": "US",
+    "language": "en",
+    "item": "plastic bag",
+    "ground_truth": "landfill - not recyclable in most areas"
+  },
+  {
+    "question": "How do I recycle milk carton?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "rinse clean",
+    "region": "US",
+    "language": "en",
+    "item": "milk carton",
+    "ground_truth": "recycling bin - rinse clean"
+  },
+  {
+    "question": "How to recycle newspaper properly?",
+    "expected_category": "paper",
+    "expected_bin": "recycling bin",
+    "expected_instructions": "keep dry",
+    "region": "US",
+    "language": "en",
+    "item": "newspaper",
+    "ground_truth": "recycling bin - keep dry"
+  },
+  {
+    "question": "Wie recycelt man Karton richtig?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "zusammenfalten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Karton",
+    "ground_truth": "Altpapier - zusammenfalten"
+  },
+  {
+    "question": "Can I recycle styrofoam?",
+    "expected_category": "plastic",
+    "expected_bin": "landfill",
+    "expected_instructions": "not recyclable",
+    "region": "US",
+    "language": "en",
+    "item": "styrofoam",
+    "ground_truth": "landfill - not recyclable"
+  },
+  {
+    "question": "Wohin kommt Zeitung zum Recyceln?",
+    "expected_category": "Papier",
+    "expected_bin": "Altpapier",
+    "expected_instructions": "trocken halten",
+    "region": "Germany",
+    "language": "de",
+    "item": "Zeitung",
+    "ground_truth": "Altpapier - trocken halten"
+  },
+  {
+    "question": "In welche Tonne kommt Styropor?",
+    "expected_category": "Kunststoff",
+    "expected_bin": "Restmüll",
+    "expected_instructions": "nicht recycelbar",
+    "region": "Germany",
+    "language": "de",
+    "item": "Styropor",
+    "ground_truth": "Restmüll - nicht recycelbar"
+  },
+  {
+    "question": "How should I dispose of pizza box with grease?",
+    "expected_category": "paper",
+    "expected_bin": "landfill",
+    "expected_instructions": "contaminated",
+    "region": "US",
+    "language": "en",
+    "item": "pizza box with grease",
+    "ground_truth": "landfill - contaminated"
+  }
+]
