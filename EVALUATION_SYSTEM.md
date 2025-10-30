@@ -117,19 +117,46 @@ Total Scores:
 Result: Correctly categorized as "glass"
 ```
 
-**Example 2: Plastic Bag Response**
+
+**Example 2: Tetra Pak Carton Response (Multi-Material Item)**
 ```
-AI Response: "Plastic bags are not recyclable in most areas. They go in the regular trash."
+AI Response: "Tetra Pak cartons are made of layered cardboard, plastic, and aluminum. They should go in paper recycling or special collection depending on local rules."
 
 Keyword Analysis:
+- "cardboard" (Primary Keyword): +3.0 points for paper category
 - "plastic" (Primary Keyword): +3.0 points for plastic category
-- "bags" (Secondary Keyword): +1.5 points for plastic category
+- "aluminum" (Primary Keyword): +3.0 points for metal category
+- "paper" (Primary Keyword): +3.0 points for paper category
+- "recycling" (Secondary Keyword): +1.5 points for paper category, +1.5 points for plastic category, +1.5 points for metal category
 
 Total Scores:
-- Plastic: 3.0 + 1.5 = 4.5 ✓ (highest score)
-- Other categories: 0.0
+- Paper: 3.0 + 3.0 + 1.5 = 7.5 ✓ (highest score)
+- Plastic: 3.0 + 1.5 = 4.5
+- Metal: 3.0 + 1.5 = 4.5
+- Other categories: Plastic (4.5), Metal (4.5)
 
-Result: Correctly categorized as "plastic"
+Result: Correctly categorized as "paper" (highest score, despite multi-material composition)
+```
+
+**Example 3: Rechargeable Battery Response (Hazardous and Metal Properties)**
+```
+AI Response: "Rechargeable batteries contain valuable metals like nickel and lithium, but they are also hazardous waste. Check local regulations for proper disposal or recycling programs."
+
+Keyword Analysis:
+- "batteries" (Primary Keyword): +3.0 points for hazardous category
+- "metals" (Primary Keyword): +3.0 points for metal category
+- "nickel" (Secondary Keyword): +1.5 points for metal category
+- "lithium" (Secondary Keyword): +1.5 points for metal category
+- "hazardous" (Primary Keyword): +3.0 points for hazardous category
+- "waste" (Secondary Keyword): +1.5 points for hazardous category
+- "recycling" (Secondary Keyword): +1.5 points for metal category, +1.5 points for hazardous category
+
+Total Scores:
+- Hazardous: 3.0 + 3.0 + 1.5 + 1.5 = 9.0 ✓ (highest score)
+- Metal: 3.0 + 1.5 + 1.5 + 1.5 = 7.5
+- Other categories: Metal (7.5)
+
+Result: Correctly categorized as "hazardous" (highest score, prioritizing safety over material value)
 ```
 
 #### How `ResponseSimplifer` Works
