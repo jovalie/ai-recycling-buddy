@@ -28,51 +28,51 @@ class ResponseSimplifier:
         # Bin category keywords with weights
         self.category_keywords = {
             "recycling bin (yellow bag)": {
-                "primary": ["recycling bin", "recycle", "wertstofftonne", "gelber sack", "gelbe tonne", "yellow bin"],
-                "secondary": ["can recycling", "bottle bank", "container", "wertstoffe"],
-                "german_compounds": ["wertstofftonnen", "gelbesäcke"],
+                "primary": ["gelber sack", "gelbe tonne", "wertstofftonne", "yellow bag", "recycling bin"],
+                "secondary": ["wertstoffe", "recycling container", "yellow recycling"],
+                "german_compounds": ["gelben sack", "gelbe tonne", "wertstofftonnen"],
                 "weight": 1.0,
             },
             "glass container": {
-                "primary": ["altglascontainer", "glass container", "glass bin", "glascontainer"],
-                "secondary": ["blue bin", "green bin", "glass recycling", "altglas"],
-                "german_compounds": ["altglascontainer"],
-                "weight": 1.0,
+                "primary": ["altglascontainer", "glascontainer", "glass container", "glass bin"],
+                "secondary": ["altglas", "glass recycling", "blue container", "green container"],
+                "german_compounds": ["altglascontainer", "glascontainern"],
+                "weight": 1.2,  # Higher weight for glass since it's specific
             },
             "paper recycling": {
-                "primary": ["altpapier", "paper recycling", "blaue tonne", "papiertonne", "blue bin", "paper bin"],
-                "secondary": ["cardboard bin", "paper container", "altepapier"],
-                "german_compounds": ["altpapiercontainer", "papiertonnen"],
-                "weight": 1.0,
+                "primary": ["altpapier", "papiertonne", "blaue tonne", "paper recycling", "blue bin"],
+                "secondary": ["altepapier", "paper container", "cardboard recycling"],
+                "german_compounds": ["altpapiercontainer", "papiertonnen", "blaue tonne"],
+                "weight": 1.2,  # Higher weight for paper since it's specific
             },
             "landfill": {
-                "primary": ["landfill", "trash", "garbage", "regular trash", "restmüll", "hausmüll", "schwarze tonne", "graue tonne"],
-                "secondary": ["trash bin", "garbage bin", "waste bin", "black bin", "gray bin", "general waste"],
-                "german_compounds": ["restmülltonne", "hausmülltonne"],
+                "primary": ["restmüll", "hausmüll", "graue tonne", "schwarze tonne", "landfill", "trash"],
+                "secondary": ["general waste", "regular trash", "black bin", "gray bin"],
+                "german_compounds": ["restmülltonne", "hausmülltonne", "graue tonne", "schwarze tonne"],
                 "weight": 1.0,
             },
             "special collection": {
-                "primary": ["special collection", "sammelstelle", "wertstoffhof", "recycling center", "collection point", "drop-off"],
-                "secondary": ["special waste", "hazardous collection", "electronic waste", "e-waste"],
-                "german_compounds": ["sammelstellen", "wertstoffhöfe"],
-                "weight": 1.2,  # Higher weight for special collection since it's often critical
+                "primary": ["sammelstelle", "wertstoffhof", "special collection", "collection point"],
+                "secondary": ["drop-off center", "recycling center", "hazardous waste collection"],
+                "german_compounds": ["sammelstellen", "wertstoffhöfen"],
+                "weight": 1.3,  # Higher weight since special collection is critical
             },
             "compost bin": {
-                "primary": ["compost bin", "compost", "organic waste", "biotonne", "grüne tonne", "bio waste", "food waste"],
-                "secondary": ["green bin", "compostable", "organic bin", "biodegradable"],
-                "german_compounds": ["biotonnen", "kompostierbar"],
-                "weight": 1.0,
+                "primary": ["biotonne", "grüne tonne", "compost bin", "organic waste"],
+                "secondary": ["bio waste", "food waste", "green bin", "compost"],
+                "german_compounds": ["biotonnen", "grüne tonne"],
+                "weight": 1.2,  # Higher weight for compost since it's specific
             },
             "donation bin": {
-                "primary": ["donation bin", "textile recycling", "clothing donation", "textilsammlung", "kleidersammlung"],
-                "secondary": ["charity bin", "textile collection", "clothing bin", "fabric recycling"],
-                "german_compounds": ["textilsammlungen", "kleiderspenden"],
-                "weight": 1.0,
+                "primary": ["textilsammlung", "kleidersammlung", "donation bin", "textile recycling"],
+                "secondary": ["clothing donation", "fabric recycling", "charity bin"],
+                "german_compounds": ["textilsammlungen", "kleidersammlungen"],
+                "weight": 1.1,  # Slightly higher weight for donation
             },
         }
 
     def categorize_response(self, response: str) -> str:
-        """Categorize a response into a material category using intelligent matching."""
+        """Categorize a response into a bin category using intelligent matching."""
         response = response.lower().strip()
 
         # Score each category based on keyword matches with weights
@@ -82,23 +82,21 @@ class ResponseSimplifier:
         for category, keyword_data in self.category_keywords.items():
             score = 0
 
-            # Check primary keywords (highest weight)
-            for keyword in keyword_data["primary"]:
-                count = response.count(keyword.lower())
-                if count > 0:
-                    score += count * 3.0  # Primary keywords get 3x weight
-
-            # Check secondary keywords (medium weight)
-            for keyword in keyword_data["secondary"]:
-                count = response.count(keyword.lower())
-                if count > 0:
-                    score += count * 1.5  # Secondary keywords get 1.5x weight
-
-            # Check German compound words (high weight for compounds)
+            # Check German compound words first (highest priority)
             for keyword in keyword_data["german_compounds"]:
-                count = response.count(keyword.lower())
-                if count > 0:
-                    score += count * 2.5  # Compound words get 2.5x weight
+                if keyword.lower() in response:
+                    score += 4.0  # German compounds get highest weight
+
+            # Check primary keywords
+            for keyword in keyword_data["primary"]:
+                if keyword.lower() in response:
+                    score += 3.0  # Primary keywords get high weight
+
+            # Check secondary keywords (only if no primary matches yet)
+            if score == 0:
+                for keyword in keyword_data["secondary"]:
+                    if keyword.lower() in response:
+                        score += 1.5  # Secondary keywords get medium weight
 
             # Apply category weight multiplier
             score *= keyword_data["weight"]
@@ -106,11 +104,22 @@ class ResponseSimplifier:
             scores[category] = score
             max_score = max(max_score, score)
 
-        # Only return a category if we have a meaningful score (> 0.5)
+        # Only return a category if we have a meaningful score (> 2.0)
         # This prevents false positives from incidental keyword matches
-        if max_score > 0.5:
-            best_category = max(scores, key=scores.get)
-            return best_category.title()
+        if max_score > 2.0:
+            # Find all categories with the maximum score
+            best_categories = [cat for cat, scr in scores.items() if scr == max_score]
+
+            # If there's a tie, prefer categories with German compound matches
+            if len(best_categories) > 1:
+                for category in best_categories:
+                    keyword_data = self.category_keywords[category]
+                    for keyword in keyword_data["german_compounds"]:
+                        if keyword.lower() in response:
+                            return category.title()
+
+            # Otherwise return the first one (they're ordered by priority)
+            return best_categories[0].title()
 
         return "Unknown"
 
@@ -355,13 +364,13 @@ class RecyclingEvaluator:
                 correct = sum(1 for r in lang_results if r["bin_correct"])
                 stats["by_language"][language] = {"total": len(lang_results), "correct": correct, "accuracy": correct / len(lang_results)}
 
-        # By expected category (material type)
-        categories = set(r["category"] for r in results)
-        for category in categories:
-            cat_results = [r for r in results if r["category"] == category]
-            if cat_results:
-                correct = sum(1 for r in cat_results if r["bin_correct"])
-                stats["by_category"][category] = {"total": len(cat_results), "correct": correct, "accuracy": correct / len(cat_results)}
+        # By expected bin (instead of category)
+        bins = set(r["expected_bin"].lower() for r in results)
+        for bin_name in bins:
+            bin_results = [r for r in results if r["expected_bin"].lower() == bin_name]
+            if bin_results:
+                correct = sum(1 for r in bin_results if r["bin_correct"])
+                stats["by_category"][bin_name.title()] = {"total": len(bin_results), "correct": correct, "accuracy": correct / len(bin_results)}
 
         # Performance metrics
         successful_results = [r for r in results if r["error"] is None]
@@ -416,9 +425,38 @@ def display_results_summary(results: List[Dict[str, Any]], stats: Dict[str, Any]
     for language, data in stats["by_language"].items():
         print(f"  {language}: {data['accuracy']:.2%} ({data['correct']}/{data['total']})")
 
-    print("\nBy Category:")
+    print("\nBy Bin:")
     for category, data in stats["by_category"].items():
-        print(f"  {category}: {data['accuracy']:.2%} ({data['correct']}/{data['total']})")
+        # Format bin names properly for display
+        display_name = category.lower()
+        if display_name in ["gelber sack", "gelbe tonne", "wertstofftonne"]:
+            display_name = "Gelber Sack"
+        elif display_name in ["altglascontainer"]:
+            display_name = "Altglascontainer"
+        elif display_name in ["altpapier", "blaue tonne", "papiertonne"]:
+            display_name = "Altpapier"
+        elif display_name in ["restmüll", "hausmüll", "schwarze tonne", "graue tonne"]:
+            display_name = "Restmüll"
+        elif display_name in ["sammelstelle", "wertstoffhof"]:
+            display_name = "Sammelstelle"
+        elif display_name in ["biotonne", "grüne tonne"]:
+            display_name = "Biotonne"
+        elif display_name in ["textilsammlung", "kleidersammlung"]:
+            display_name = "Textilsammlung"
+        elif display_name == "recycling bin":
+            display_name = "Recycling Bin"
+        elif display_name == "special collection":
+            display_name = "Special Collection"
+        elif display_name == "compost bin":
+            display_name = "Compost Bin"
+        elif display_name == "donation bin":
+            display_name = "Donation Bin"
+        elif display_name == "landfill":
+            display_name = "Landfill"
+        else:
+            display_name = display_name.title()
+
+        print(f"  {display_name}: {data['accuracy']:.2%} ({data['correct']}/{data['total']})")
 
     if "performance_metrics" in stats:
         pm = stats["performance_metrics"]
