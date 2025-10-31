@@ -107,70 +107,82 @@ The system looks for different types of words in the assistant's answer and give
 - **Fallback Category**: "Unknown" for scores below threshold
 - **Normalization**: Standardizes regional bin names (e.g., "Gelber Sack" → "recycling bin")
 
-**Example 1: Recycling Bin Response**
+**Example 1: Glass Bottle Response**
 ```
 AI Response: "Glass bottles should go in the recycling bin. Make sure to remove the lid first."
 
 Keyword Analysis:
-- "recycling bin" (Primary Keyword): +3.0 points for recycling bin category
-- "glass bottles" (Secondary Keyword): +1.5 points for recycling bin category (glass goes in recycling)
-- "remove the lid" (Secondary Keyword): +1.5 points for recycling bin category
+- "glass" (Primary Keyword): +3.0 points for glass category
+- "bottles" (Secondary Keyword): +1.5 points for glass category  
+- "recycling bin" (Secondary Keyword): +1.5 points for glass category
 
 Total Scores:
-- Recycling Bin: 3.0 + 1.5 + 1.5 = 5.5 ✓ (highest score)
-- Other bins: 0.0
+- Glass: 3.0 + 1.5 + 1.5 = 5.5 ✓ (highest score)
+- Other categories: 0.0
 
-Result: Correctly recommends "recycling bin"
+Result: Correctly categorized as "glass"
 ```
 
-**Example 2: German Glass Container Response**
+
+**Example 2: Tetra Pak Carton Response (Multi-Material Item)**
 ```
-AI Response: "Glasflaschen gehören in den Altglascontainer. Den Deckel vorher abnehmen."
+AI Response: "Tetra Pak cartons are made of layered cardboard, plastic, and aluminum. They should go in paper recycling or special collection depending on local rules."
 
 Keyword Analysis:
-- "Altglascontainer" (Primary Keyword): +3.0 points for glass container category
-- "Glasflaschen" (German Compound): +2.5 points for glass container category
-- "Deckel abnehmen" (Secondary Keyword): +1.5 points for glass container category
+- "cardboard" (Primary Keyword): +3.0 points for paper category
+- "plastic" (Primary Keyword): +3.0 points for plastic category
+- "aluminum" (Primary Keyword): +3.0 points for metal category
+- "paper" (Primary Keyword): +3.0 points for paper category
+- "recycling" (Secondary Keyword): +1.5 points for paper category, +1.5 points for plastic category, +1.5 points for metal category
 
 Total Scores:
-- Glass Container: 3.0 + 2.5 + 1.5 = 7.0 ✓ (highest score)
-- Other bins: 0.0
+- Paper: 3.0 + 3.0 + 1.5 = 7.5 ✓ (highest score)
+- Plastic: 3.0 + 1.5 = 4.5
+- Metal: 3.0 + 1.5 = 4.5
+- Other categories: Plastic (4.5), Metal (4.5)
 
-Result: Correctly recommends "glass container" (German Altglascontainer)
+Result: Correctly categorized as "paper" (highest score, despite multi-material composition)
 ```
 
-**Example 3: German Paper Recycling Response**
+**Example 3: Rechargeable Battery Response (Hazardous and Metal Properties)**
 ```
-AI Response: "Zeitungen und Kartons kommen ins Altpapier. Bitte trocken halten."
+AI Response: "Rechargeable batteries contain valuable metals like nickel and lithium, but they are also hazardous waste. Check local regulations for proper disposal or recycling programs."
 
 Keyword Analysis:
-- "Altpapier" (Primary Keyword): +3.0 points for paper recycling category
-- "Zeitungen" (German Compound): +2.5 points for paper recycling category
-- "Kartons" (German Compound): +2.5 points for paper recycling category
-- "trocken halten" (Secondary Keyword): +1.5 points for paper recycling category
+- "batteries" (Primary Keyword): +3.0 points for hazardous category
+- "metals" (Primary Keyword): +3.0 points for metal category
+- "nickel" (Secondary Keyword): +1.5 points for metal category
+- "lithium" (Secondary Keyword): +1.5 points for metal category
+- "hazardous" (Primary Keyword): +3.0 points for hazardous category
+- "waste" (Secondary Keyword): +1.5 points for hazardous category
+- "recycling" (Secondary Keyword): +1.5 points for metal category, +1.5 points for hazardous category
 
 Total Scores:
-- Paper Recycling: 3.0 + 2.5 + 2.5 + 1.5 = 9.5 ✓ (highest score)
-- Other bins: 0.0
+- Hazardous: 3.0 + 3.0 + 1.5 + 1.5 = 9.0 ✓ (highest score)
+- Metal: 3.0 + 1.5 + 1.5 + 1.5 = 7.5
+- Other categories: Metal (7.5)
 
-Result: Correctly recommends "paper recycling" (German Altpapier)
+Result: Correctly categorized as "hazardous" (highest score, prioritizing safety over material value)
 ```
 
-**Example 4: German Yellow Bag Response**
+**Example 4: Rechargeable Lithium-Ion Battery Response (German Compounds with Multi-Category Scoring)**
 ```
-AI Response: "Plastikflaschen und Dosen gehören in den Gelben Sack."
+AI Response: "Lithium-Ionen-Akkus enthalten wertvolle Metalle wie Nickel und Lithium, sind aber Sondermüll. Sie sollten zu Batterie-Sammelstellen gebracht werden."
 
 Keyword Analysis:
-- "Gelben Sack" (Primary Keyword): +3.0 points for recycling bin category
-- "Plastikflaschen" (German Compound): +2.5 points for recycling bin category
-- "Dosen" (Secondary Keyword): +1.5 points for recycling bin category
+- "Lithium-Ionen-Akkus" (German Compound): +2.5 points for hazardous category
+- "wertvolle Metalle" (Primary Keyword "Metalle"): +3.0 points for metal category
+- "Nickel" (Secondary Keyword): +1.5 points for metal category
+- "Lithium" (Secondary Keyword): +1.5 points for metal category
+- "Sondermüll" (German Compound): +2.5 points for hazardous category
+- "Batterie-Sammelstellen" (German Compound): +2.5 points for hazardous category
 
 Total Scores:
-- Recycling Bin: 3.0 + 2.5 + 1.5 = 7.0 ✓ (highest score)
-- Other bins: 0.0
+- Hazardous: 2.5 + 2.5 + 2.5 = 7.5 ✓ (highest score)
+- Metal: 3.0 + 1.5 + 1.5 = 6.0
+- Other categories: Metal (6.0)
 
-Result: Correctly recommends "recycling bin" (German Gelber Sack)
-```
+Result: Correctly categorized as "hazardous" (German compounds reinforce hazardous classification despite metal content)
 
 ### 3.3 Evaluation Metrics
 
