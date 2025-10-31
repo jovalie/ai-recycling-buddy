@@ -183,7 +183,7 @@ Total Scores:
 - Other categories: Metal (6.0)
 
 Result: Correctly categorized as "hazardous" (German compounds reinforce hazardous classification despite metal content)
-
+```
 ### 3.3 Evaluation Metrics
 
 #### Basic Performance Metrics
